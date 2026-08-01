@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/Apsis.Coordinates.Demo/Apsis.Coordinates.Demo.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Apsis.Coordinates/Apsis.Coordinates.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Apsis.Coordinates.Tests/Apsis.Coordinates.Tests.csproj" />
+  </Folder>
+</Solution>
