@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Apsis.Coordinates;
+using Apsis;
+
 Console.WriteLine("Hello, World!");
