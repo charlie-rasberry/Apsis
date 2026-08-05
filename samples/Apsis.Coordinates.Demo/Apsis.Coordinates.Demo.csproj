@@ -2,6 +2,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Apsis.Coordinates\Apsis.Coordinates.csproj" />
+    <ProjectReference Include="..\..\src\Apsis.Mechanics\Apsis.Mechanics.csproj" />
+    <ProjectReference Include="..\..\src\Apsis.Time\Apsis.Time.csproj" />
+    <ProjectReference Include="..\..\src\Apsis.Units\Apsis.Units.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
