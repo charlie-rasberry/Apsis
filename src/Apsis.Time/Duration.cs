@@ -38,7 +38,28 @@ public readonly record struct Duration(long Us)
     public long GetDays()  => Days;
     public long GetWeeks()  => Weeks;
     
+    // Overloads
+    public static Duration operator +(Duration a, Duration b) => new (a.Us + b.Us);
+    public static Duration operator -(Duration a, Duration b) => new (a.Us - b.Us);
+    public static Duration operator *(Duration a, long scalar) => new(a.Us * scalar);
+    public static Duration operator /(Duration a, long scalar) => new(a.Us / scalar);
+    public static double operator /(Duration a, Duration b) => (double) a.Us / b.Us;
+
+
+        // Comparisons
+    public static bool operator <(Duration a, Duration b) => a.Us < b.Us;
+    public static bool operator >(Duration a, Duration b) => a.Us > b.Us;
+    public static bool operator <=(Duration a, Duration b) => a.Us <= b.Us;
+    public static bool operator >=(Duration a, Duration b) => a.Us >= b.Us;
     
+
+    public void Deconstruct(out long us, out long ms)
+    {
+        us = Us;
+        ms = MilliSeconds;
+    }
     
+    // Override ToString for better debugging
+    public override string ToString() => $"{Seconds}.{Us % MicrosecondsPerSecond:D6}s";
     
 }
