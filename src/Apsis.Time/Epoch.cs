@@ -8,8 +8,24 @@ namespace Apsis.Time;
 /// <summary>
 /// Julian Day Epoch
 /// </summary>
-/// <param name="jdHigh"></param>
-/// <param name="jdLow"></param>
-public record struct Epoch(long jdHigh, long jdLow)
+public record struct Epoch(long JulianDayWhole, long JulianDayFraction)
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public readonly double JulianDay => JulianDayWhole +  JulianDayFraction / 10_000_000.0;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="year"></param>
+    /// <param name="day"></param>
+    /// <param name="month"></param>
+    /// <param name="ut1"></param>
+    /// <returns></returns>
+    public static double JulianDayFromGregorian(long year, long month, long day, double ut1)
+    {
+        (long, long) jd = Apsis.Time.Clock.GregorianToJulian(year, month, day, ut1);
+        return new Epoch(jd.Item1, jd.Item2).JulianDay;
+    }
 }

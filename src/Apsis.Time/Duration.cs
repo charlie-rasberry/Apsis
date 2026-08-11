@@ -1,6 +1,9 @@
 namespace Apsis.Time;
 
 /// <summary>
+/// This file does more than whats currently needed.
+/// Wont be doing this again as its just confusing to whats being used.
+/// 
 /// Represents a span of time stored internally as a whole number of microseconds.
 /// Provides conversion properties, factory methods, arithmetic operators, and
 /// comparison operators for working with durations.

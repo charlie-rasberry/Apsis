@@ -51,7 +51,7 @@ public static class Clock
     // I is the day of the month (1 <= I <= 31),
     // B is Julian calendar default
     // and UT is the universal time in hours
-    public static (long, long) GregorianToJulian(long K, long M, long I, long ut1)
+    public static (long, long) GregorianToJulian(long K, long M, long I, double ut1)
     {
         long B = 0; // Julian calendar default
 
@@ -78,7 +78,8 @@ public static class Clock
                 + 1721013;
 
         long jdInt = N + (ut1 >= 12 ? 1 : 0);
-        long jdFrac = ((ut1 + 12) % 24) / 24;
+        
+        long jdFrac = (long)((((ut1 + 12.0) % 24.0) / 24.0) * 10000000);
 
         return (jdInt, jdFrac);
         // JDN = N + 1
