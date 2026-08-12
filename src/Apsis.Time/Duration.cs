@@ -1,5 +1,6 @@
 namespace Apsis.Time;
 
+
 /// <summary>
 /// This file does more than whats currently needed.
 /// Wont be doing this again as its just confusing to whats being used.
@@ -103,7 +104,7 @@ public record struct Duration(long Us)
     /// </summary>
     /// <param name="seconds">The number of seconds.</param>
     /// <returns>A duration representing the specified value.</returns>
-    public static Duration FromSeconds(long seconds) => new(seconds * MicrosecondsPerSecond);
+    public static Duration FromSeconds(double seconds) => new((long) (seconds * (double) MicrosecondsPerSecond));
 
     /// <summary>
     /// Creates a duration from a minute value.

@@ -1,4 +1,6 @@
 namespace Apsis.Time;
+// TODO: Current implementation is a day off when the date goes past a certain threshold.
+// TODO: input 12th march and it might become 13th march
 
 /// <summary>
 /// Provides utility methods for converting between civil calendar dates and Julian dates,
