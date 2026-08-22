@@ -8,12 +8,21 @@ namespace Apsis.Time;
 /// <summary>
 /// Julian Day Epoch
 /// </summary>
-public record struct Epoch(long JulianDayWhole, long JulianDayFraction)
+public record struct Epoch(long JdW, long JdF) // Julian day whole and fraction
 {
+    /// <summary>
+    /// So we can access this in future if need be, can remove later if turns out we don't
+    /// </summary>
+    public readonly long JulianDayWhole => JdW;
+
+    /// <summary>
+    /// Same as above, I am not sure if this is entirely necessary but makes it easier to access later
+    /// </summary>
+    public readonly long JulianDayFraction => JdF;
     /// <summary>
     /// 
     /// </summary>
-    public readonly double JulianDay => JulianDayWhole +  JulianDayFraction / 10_000_000.0;
+    public readonly double JulianDay => JdW +  JdF / 10_000_000.0;
 
     /// <summary>
     /// 
@@ -27,5 +36,17 @@ public record struct Epoch(long JulianDayWhole, long JulianDayFraction)
     {
         (long, long) jd = Apsis.Time.Clock.GregorianToJulian(year, month, day, ut1);
         return new Epoch(jd.Item1, jd.Item2).JulianDay;
+    }
+
+    /// <summary>
+    /// Julian day generated from microseconds, primarily for adding elapsed time to current julian day
+    /// </summary>
+    /// <param name="microseconds"></param>
+    /// <returns></returns>
+    public static double JulianDayFromUs(long microseconds)
+    {
+        long whole = microseconds / Duration.MicrosecondsPerDay;
+        long frac = microseconds % Duration.MicrosecondsPerDay;
+        return new Epoch(whole, frac).JulianDay;
     }
 }

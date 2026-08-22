@@ -81,6 +81,8 @@ while (true)
         Console.WriteLine($"Elapsed: {elapsed.MicroSeconds} microseconds");
         Console.WriteLine($"Seconds: {elapsed.Seconds} seconds");
         
+        Console.WriteLine($"{(double) elapsed.MicroSeconds / Duration.MicrosecondsPerDay:F12} days");
+        
     }
     
     
