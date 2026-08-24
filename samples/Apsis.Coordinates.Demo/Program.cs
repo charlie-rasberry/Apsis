@@ -60,22 +60,26 @@ while (true)
 
     } else if (input == "n")
     {
-        long k = 2192;
-        long m = 2;
-        long i = 13;
+        long year = 2192;
+        long month = 2;
+        long day = 13;
         double ut1 = 4;
         
-        var epoch = Epoch.JulianDayFromGregorian(k, m, i, ut1);
-        Console.WriteLine($"Epoch: {Epoch.EpochToString(epoch)}");
+        var epoch = Epoch.JulianDayFromGregorian(year, month, day, ut1);
+        Console.WriteLine($"Setting epoch as {year}-{month}-{day} {ut1} Hours");
+        Console.WriteLine($"Current epoch in stored form: {epoch}");
+        Console.WriteLine($"Current epoch in display form: {Epoch.StoredJulianDayToDisplayJulianDay(epoch)}");
         
         // TODO: create a tick which uses Stopwatch as realtime, and work its way up to days / weeks passing as seconds etc.
         
         // 12107445442333 - 12104445372131 = 3000070202 nanoseconds
-        Stopwatch stopWatch = new Stopwatch();
         long start = Stopwatch.GetTimestamp(); // Nanoseconds
+        
         // work
         Thread.Sleep(3000);
+        
         long end = Stopwatch.GetTimestamp();
+        
         Console.WriteLine($"End ({end} - {start}");
         Duration elapsed = new((long) ((double) (end - start) / 1000.0));
         Console.WriteLine($"Elapsed: {elapsed.MicroSeconds} microseconds");
@@ -83,13 +87,15 @@ while (true)
         
         Console.WriteLine($"{(double) elapsed.MicroSeconds / Duration.MicrosecondsPerDay:F12} days");
         
-        var newEpoch = Epoch.JulianDayFromUs(elapsed.MicroSeconds);
-        Console.WriteLine($"New Epoch: {Epoch.EpochToString(newEpoch)}");
+        var newEpoch = Epoch.ToJulianDayFromUs(elapsed.MicroSeconds);
+        Console.WriteLine($"New Epoch: {newEpoch}");
         
         // updated epoch
         //epoch += newEpoch;
         Console.WriteLine("Updated epoch");
-        Console.WriteLine($"Epoch: {Epoch.EpochToString(epoch)}");
+        Console.WriteLine($"Epoch: {epoch}");
+        
+        Console.WriteLine($"Current epoch in display form: {Epoch.StoredJulianDayToDisplayJulianDay(epoch)}");
     }
     
     
