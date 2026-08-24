@@ -10,6 +10,8 @@ namespace Apsis.Time;
 /// </summary>
 public record struct Epoch(long JdW, long JdF) // Julian day whole and fraction
 {
+    private const long Scale = Duration.MicrosecondsPerDay * 1_000_000; // 86_400
+    
     /// <summary>
     /// So we can access this in future if need be, can remove later if turns out we don't
     /// </summary>
@@ -19,10 +21,8 @@ public record struct Epoch(long JdW, long JdF) // Julian day whole and fraction
     /// Same as above, I am not sure if this is entirely necessary but makes it easier to access later
     /// </summary>
     public readonly long JulianDayFraction => JdF;
-    /// <summary>
-    /// 
-    /// </summary>
-    public readonly double JulianDay => JdW +  JdF / 10_000_000.0;
+    
+    //double JulianDay => JdW +  JdF / Scale;
 
     /// <summary>
     /// 
@@ -32,21 +32,38 @@ public record struct Epoch(long JdW, long JdF) // Julian day whole and fraction
     /// <param name="month"></param>
     /// <param name="ut1"></param>
     /// <returns></returns>
-    public static double JulianDayFromGregorian(long year, long month, long day, double ut1)
+    public static Epoch JulianDayFromGregorian(long year, long month, long day, double ut1)
     {
         (long, long) jd = Apsis.Time.Clock.GregorianToJulian(year, month, day, ut1);
-        return new Epoch(jd.Item1, jd.Item2).JulianDay;
+        return new Epoch(jd.Item1, jd.Item2);
     }
 
     /// <summary>
-    /// Julian day generated from microseconds, primarily for adding elapsed time to current julian day
+    /// Julian day generated from microseconds, primarily for adding elapsed time to current julian day.
+    /// Represents the Julian day relative to the days starting point.
     /// </summary>
     /// <param name="microseconds"></param>
     /// <returns></returns>
-    public static double JulianDayFromUs(long microseconds)
+    public static Epoch JulianDayFromUs(long microseconds)
     {
         long whole = microseconds / Duration.MicrosecondsPerDay;
-        long frac = microseconds % Duration.MicrosecondsPerDay;
-        return new Epoch(whole, frac).JulianDay;
+        long usIntoDay = microseconds % Duration.MicrosecondsPerDay;
+        Console.WriteLine($"usIntoDay: {usIntoDay}");
+        // Subtraction
+        if (usIntoDay < 0)
+        {
+            usIntoDay += Duration.MicrosecondsPerDay; whole--;
+        }
+        return new Epoch(whole, usIntoDay);
+    }
+
+    /// <summary>
+    /// Returns full julian day epoch with the decimal as a string
+    /// </summary>
+    /// <param name="epoch"></param>
+    /// <returns></returns>
+    public static string EpochToString(Epoch epoch)
+    {
+        return $"{epoch.JulianDayWhole}.{epoch.JulianDayFraction}";
     }
 }

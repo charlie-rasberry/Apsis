@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Apsis.Time;
 
 
@@ -100,12 +102,15 @@ public record struct Duration(long Us)
     public static Duration FromMilliseconds(long milliseconds) => new(milliseconds * MicrosecondsPerMillisecond);
 
     /// <summary>
-    /// Creates a duration from a second value.
+    /// Creates a duration from stopwatch ticks
     /// </summary>
-    /// <param name="seconds">The number of seconds.</param>
+    /// <param name="ticks">The number of ticks.</param>
     /// <returns>A duration representing the specified value.</returns>
-    public static Duration FromSeconds(double seconds) => new((long) (seconds * (double) MicrosecondsPerSecond));
-
+    public static Duration FromStopwatchTick(long ticks) // tick is in nanoseconds
+    {
+        long microseconds = (ticks * 1_000_000) / Stopwatch.Frequency; // convert tick nanoseconds to microseconds, 1_000_000 to convert seconds to microseconds
+        return new Duration(microseconds); 
+    }
     /// <summary>
     /// Creates a duration from a minute value.
     /// </summary>

@@ -54,7 +54,7 @@ while (true)
         {
             Console.WriteLine("Error");
         }
-        double epoch = Apsis.Time.Epoch.JulianDayFromGregorian(y,  m, d, h);
+        var epoch = Apsis.Time.Epoch.JulianDayFromGregorian(y,  m, d, h);
         Console.WriteLine($"Epoch: {epoch}");
         
 
@@ -65,8 +65,8 @@ while (true)
         long i = 13;
         double ut1 = 4;
         
-        double epoch = Apsis.Time.Epoch.JulianDayFromGregorian(k, m, i, ut1);
-        Console.WriteLine($"Epoch: {epoch}");
+        var epoch = Epoch.JulianDayFromGregorian(k, m, i, ut1);
+        Console.WriteLine($"Epoch: {Epoch.EpochToString(epoch)}");
         
         // TODO: create a tick which uses Stopwatch as realtime, and work its way up to days / weeks passing as seconds etc.
         
@@ -83,6 +83,13 @@ while (true)
         
         Console.WriteLine($"{(double) elapsed.MicroSeconds / Duration.MicrosecondsPerDay:F12} days");
         
+        var newEpoch = Epoch.JulianDayFromUs(elapsed.MicroSeconds);
+        Console.WriteLine($"New Epoch: {Epoch.EpochToString(newEpoch)}");
+        
+        // updated epoch
+        //epoch += newEpoch;
+        Console.WriteLine("Updated epoch");
+        Console.WriteLine($"Epoch: {Epoch.EpochToString(epoch)}");
     }
     
     
