@@ -65,14 +65,12 @@ while (true)
         long day = 13;
         double ut1 = 4;
         
-        var epoch = Epoch.JulianDayFromGregorian(year, month, day, ut1);
+        Epoch epoch = Epoch.JulianDayFromGregorian(year, month, day, ut1);
         Console.WriteLine($"Setting epoch as {year}-{month}-{day} {ut1} Hours");
-        Console.WriteLine($"Current epoch in stored form: {epoch}");
-        Console.WriteLine($"Current epoch in display form: {Epoch.StoredJulianDayToDisplayJulianDay(epoch)}");
+        Console.WriteLine($"Current epoch in stored form: {epoch.JulianMicroseconds}");
+        Console.WriteLine($"Current epoch in display form: {epoch.JulianDay}");
         
-        // TODO: create a tick which uses Stopwatch as realtime, and work its way up to days / weeks passing as seconds etc.
         
-        // 12107445442333 - 12104445372131 = 3000070202 nanoseconds
         long start = Stopwatch.GetTimestamp(); // Nanoseconds
         
         // work
@@ -82,21 +80,20 @@ while (true)
         
         Console.WriteLine($"End ({end} - {start}");
         Duration elapsed = new((long) ((double) (end - start) / 1000.0));
-        Console.WriteLine($"Elapsed: {elapsed.MicroSeconds} microseconds");
+        Console.WriteLine($"Elapsed: {elapsed.Microseconds} microseconds");
         Console.WriteLine($"Seconds: {elapsed.Seconds} seconds");
         
-        Console.WriteLine($"{(double) elapsed.MicroSeconds / Duration.MicrosecondsPerDay:F12} days");
+        Console.WriteLine($"{(double) elapsed.Microseconds / Duration.MicrosecondsPerDay:F12} days");
         
-        var newEpoch = Epoch.ToJulianDayFromUs(elapsed.MicroSeconds);
-        Console.WriteLine($"New Epoch: {newEpoch}");
+        var newEpoch = Epoch.ToJulianDayFromUs(elapsed.Microseconds);
+        Console.WriteLine($"New Epoch: {newEpoch.JulianMicroseconds} Julian Microseconds, {newEpoch.JulianDay} Julian Days");
         
-        // updated epoch
-        //epoch += newEpoch;
-        Console.WriteLine("Updated epoch");
-        Console.WriteLine($"Epoch: {epoch}");
-        
-        Console.WriteLine($"Current epoch in display form: {Epoch.StoredJulianDayToDisplayJulianDay(epoch)}");
-    }
+
+        Console.WriteLine($"Epoch + new epoch: {newEpoch.JulianDay} + {epoch.JulianDay} =  {newEpoch.JulianDay + epoch.JulianDay} Julian Days, {newEpoch.JulianMicroseconds + epoch.JulianMicroseconds}");
+        var tmpJulianMicroseconds = epoch + elapsed;
+        Console.WriteLine($"new Julian Microseconds: {tmpJulianMicroseconds}");
+        Console.WriteLine($"Converted from the stored + elapsed: {tmpJulianMicroseconds.JulianMicroseconds} microseconds,  {tmpJulianMicroseconds.JulianDay} Julian Days");
+    }217876147203000071 217876147203000071
     
     
     

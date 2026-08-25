@@ -1,29 +1,39 @@
 namespace Apsis.Time;
-// 1970-01-01 00:00:00 UTC for Unix
-// 2451545.0
-// J = 2000 + (Julian date − 2451545.0) ÷ 365.25
-// The Julian date (JD) of any instant is the Julian day number plus the fraction of a day since the preceding noon in Universal Time.
-// 00:30:00.0 UT January 1, 2013, is 2456293.520833.
-// 2550864.0 - Tuesday, 5 December 2271 at 12:00:00
 /// <summary>
-/// Julian Day Epoch
+/// Epoch, the date to set as a reference / starting point
+/// The Julian date (JD) of any instant is the Julian day number plus the fraction of a day since the preceding noon in Universal Time.
 /// </summary>
-public record struct Epoch(long Jd) // Julian day whole and fraction
+public record struct Epoch // Julian day whole and fraction
 {
-    private const long ScaleUsPerDay = Duration.MicrosecondsPerDay;
+    /// <summary>
+    /// Version of the julian day we store to avoid floating point precision issues
+    /// </summary>
+    public long JulianMicroseconds { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="julianMicroseconds"></param>
+    public Epoch(long julianMicroseconds)
+    {
+        JulianMicroseconds = julianMicroseconds;
+    }
+    /// <summary>
+    /// Full version of Julian day with decimals
+    /// </summary>
+    public double JulianDay => DescaleJulianDay(JulianMicroseconds);
+    
     /// <summary>
     /// Converts and creates a julian day from a given gregorian calendar date
-    /// Is not accurate past a certain year in the future... it might / probably is 2100
+    /// Is accurate past year 2099, uses fliegel and van flandern 1968 proleptic gregorian calendar formula
     /// </summary>
     /// <param name="year"></param>
     /// <param name="month"></param>
     /// <param name="day"></param>
     /// <param name="ut1"></param>
     /// <returns></returns>
-    public static long JulianDayFromGregorian(long year, long month, long day, double ut1)
+    public static Epoch JulianDayFromGregorian(long year, long month, long day, double ut1)
     {
-        double jdScaled = GregorianToJulian(year, month, day, ut1) * ScaleUsPerDay;
-        return (long) jdScaled ;
+        return new Epoch(ScaleJulianDay(GregorianToJulian(year, month, day, ut1)));
     }
 
     /// <summary>
@@ -32,9 +42,9 @@ public record struct Epoch(long Jd) // Julian day whole and fraction
     /// </summary>
     /// <param name="microseconds"></param>
     /// <returns></returns>
-    public static long ToJulianDayFromUs(long microseconds) // The stored version
+    public static Epoch ToJulianDayFromUs(long microseconds) // The stored version
     {
-        return microseconds /= Duration.MicrosecondsPerDay;
+        return new Epoch(microseconds);
     }
 
     /// <summary>
@@ -42,12 +52,22 @@ public record struct Epoch(long Jd) // Julian day whole and fraction
     /// </summary>
     /// <param name="storedEpoch"></param>
     /// <returns></returns>
-    public static double StoredJulianDayToDisplayJulianDay(long storedEpoch)
+    private static double DescaleJulianDay(long storedEpoch)
     {
-        return (double) storedEpoch / Duration.MicrosecondsPerDay;
+        return (double)storedEpoch / Duration.MicrosecondsPerDay;
     }
 
     /// <summary>
+    /// Takes julian day as a double and returns a long while maintaining the precision by multiplying it by a scaling factor (Microseconds per day...86_400_000_000)
+    /// </summary>
+    /// <param name="julianDay"></param>
+    /// <returns></returns>
+    private static long ScaleJulianDay(double julianDay)
+    {
+        return (long)(julianDay * Duration.MicrosecondsPerDay);
+    }
+
+/// <summary>
     /// 
     /// D: Day of the month (e.g., 1 to 31).
     /// M: Month of the year (e.g., 1 for January, 12 for December).
@@ -84,8 +104,20 @@ public record struct Epoch(long Jd) // Julian day whole and fraction
                                - (3 * ((year + 4900 + adjustmentFactor) / 100) / 4)
                                + day
                                - 32075;
-        Console.WriteLine($"DEBUG: {julianDayNumber}{(0.5 + ut1/24)}");
+        //Console.WriteLine($"DEBUG: {julianDayNumber}{(0.5 + ut1/24)}");
         return julianDayNumber - 0.5 + ut1 / 24.0;
         // equivalent of (ut1 >= 12 ? 1 : 0) + (((ut1 + 12.0) % 24.0) / 24.0)    is    0.5 + ut1/24
     }
+
+    /// <summary>
+    /// Update the inputted epoch by a number of microseconds
+    /// </summary>
+    /// <param name="jd"></param>
+    /// <param name="us"></param>
+    /// <returns></returns>
+    public static Epoch operator +(Epoch jd, Duration us)
+    {
+        return new Epoch(jd.JulianMicroseconds + us.Microseconds);
+    }
+
 }

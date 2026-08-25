@@ -53,12 +53,12 @@ public record struct Duration(long Us)
     /// <summary>
     /// Gets the total duration in microseconds.
     /// </summary>
-    public long MicroSeconds => Us;
+    public long Microseconds => Us;
 
     /// <summary>
     /// Gets the total duration in milliseconds.
     /// </summary>
-    public long MilliSeconds => Us / MicrosecondsPerMillisecond;
+    public long Milliseconds => Us / MicrosecondsPerMillisecond;
 
     /// <summary>
     /// Gets the total duration in seconds.
@@ -145,7 +145,7 @@ public record struct Duration(long Us)
     /// Gets the total duration in milliseconds.
     /// </summary>
     /// <returns>The total number of milliseconds.</returns>
-    public long GetMilliseconds() => MilliSeconds;
+    public long GetMilliseconds() => Milliseconds;
 
     /// <summary>
     /// Gets the total duration in seconds.
@@ -234,7 +234,7 @@ public record struct Duration(long Us)
     public void Deconstruct(out long us, out long ms)
     {
         us = Us;
-        ms = MilliSeconds;
+        ms = Milliseconds;
     }
 
     /// <summary>
