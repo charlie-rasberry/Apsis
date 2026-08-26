@@ -38,6 +38,9 @@ while (true)
         var tmpJulianMicroseconds = epoch + elapsed;
         Console.WriteLine($"new Julian Microseconds: {tmpJulianMicroseconds}");
         Console.WriteLine($"Converted from the stored + elapsed: {tmpJulianMicroseconds.JulianMicroseconds} microseconds,  {tmpJulianMicroseconds.JulianDay} Julian Days");
+        
+        //      London, UK
+        //      Latitude and longitude coordinates are: 51.509865, -0.118092
 }
 
 
