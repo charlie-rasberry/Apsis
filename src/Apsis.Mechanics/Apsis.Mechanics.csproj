@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <PackageId>Apsis</PackageId>
+    <PackageId>Apsis.Mechanics</PackageId>
     <Version>0.0.0</Version>
     <Description></Description>
     <PackageTags>coordinates;geodetic;ecef;eci;wgs84;azimuth;elevation;satellite;orbital;topocentric</PackageTags>

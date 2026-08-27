@@ -5,6 +5,7 @@
     <ProjectReference Include="..\..\src\Apsis.Mechanics\Apsis.Mechanics.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Time\Apsis.Time.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Units\Apsis.Units.csproj" />
+    <ProjectReference Include="..\..\src\Apsis.Utilities\Apsis.Utilities.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

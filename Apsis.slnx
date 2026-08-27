@@ -7,7 +7,7 @@
     <Project Path="src/Apsis.Mechanics/Apsis.Mechanics.csproj" />
     <Project Path="src/Apsis.Time/Apsis.Time.csproj" />
     <Project Path="src/Apsis.Units/Apsis.Units.csproj" />
-    <Project Path="src/Utilities/Utilities.csproj" />
+    <Project Path="src/Apsis.Utilities/Apsis.Utilities.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Apsis.Coordinates.Tests/Apsis.Coordinates.Tests.csproj" />

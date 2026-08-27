@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 
 using Apsis;
+using Apsis.Coordinates;
 using Apsis.Time;
 
 // currently doesn't account for days
-while (true)
-{
+     /**
         long year = 2192;
         long month = 2;
         long day = 13;
@@ -38,10 +38,16 @@ while (true)
         var tmpJulianMicroseconds = epoch + elapsed;
         Console.WriteLine($"new Julian Microseconds: {tmpJulianMicroseconds}");
         Console.WriteLine($"Converted from the stored + elapsed: {tmpJulianMicroseconds.JulianMicroseconds} microseconds,  {tmpJulianMicroseconds.JulianDay} Julian Days");
-        
+        */
         //      London, UK
         //      Latitude and longitude coordinates are: 51.509865, -0.118092
-}
+        // on the first run we got                                      X: 2026736474463283 Y: 1933185610758203  Z: 5988631442304806
+        // on the second run we got                                     X: 3961488367666185 Y: 3100724252326595  Z: 4948692787864965
+        // on the third run with a new prime vertical formula we got:   X: 3977787910007 Y: 3113482181051  Z: 4969054239987
+        // 
+        var LlaToEcefTest = EcefCoordinate.FromGeodeticLla(51.509865, -0.118092, 11);
+        Console.WriteLine($"In micrometers: X: {LlaToEcefTest.EcefXum} Y: {LlaToEcefTest.EcefYum}  Z: {LlaToEcefTest.EcefZum}");
+        Console.WriteLine($"In meters: X: {LlaToEcefTest.EcefX} Y: {LlaToEcefTest.EcefY}  Z: {LlaToEcefTest.EcefZ}");
 
 
 
