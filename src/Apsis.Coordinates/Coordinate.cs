@@ -7,7 +7,6 @@ namespace Apsis.Coordinates;
 /// GeodeticLatitude
 /// Longitude
 /// GeodeticAltitude
-/// Max long size : 9,223,372,036,854,775,807
 /// </summary>
 public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers, long EcefZMicrometers) 
 {
@@ -49,8 +48,11 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     /// Radius along the North or South Pole in meters
     /// </summary>
     private const double PolarRadiusB = 6_356_752.3142;
-
-    private const long EquatorialRadiusAum = 637_813_700_000;
+    
+    /// <summary>
+    /// Radius along the equator in micrometers
+    /// </summary>
+    private const long EquatorialRadiusAum = (long) EquatorialRadiusA * MicrometersPerMeter;
     private const long PolarRadiusBum = 635_675_231_420;
 
     private const double EllipsoidFlatteningF = 1 - (PolarRadiusB / EquatorialRadiusA);
