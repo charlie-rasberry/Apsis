@@ -1,5 +1,4 @@
-﻿namespace Utilities;
-// Added this, but cannot confirm its working. I think this is needed as we will be using an older version. 
+﻿namespace Apsis.Utilities;
 /// <summary>
 /// 
 /// </summary>
@@ -15,10 +14,7 @@ public static class RandomFix
     /// <returns></returns>
     public static int Next(int min, int max)
     {
-        if (s_randomInstance == null)
-        {
-            s_randomInstance = new Random(Guid.NewGuid().GetHashCode());
-        }
+        s_randomInstance = new Random(Guid.NewGuid().GetHashCode());
         return s_randomInstance.Next(min, max);
     }
 
@@ -28,10 +24,7 @@ public static class RandomFix
     /// <returns></returns>
     public static double NextDouble()
     {
-        if (s_randomInstance == null)
-        {
-            s_randomInstance = new Random(Guid.NewGuid().GetHashCode());
-        }
+        s_randomInstance = new Random(Guid.NewGuid().GetHashCode());
         return s_randomInstance.NextDouble();
     }
 }

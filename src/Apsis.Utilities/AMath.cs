@@ -3,12 +3,13 @@ namespace Apsis.Utilities;
 /// <summary>
 /// 
 /// </summary>
-public static class Mathematical
+public static class AMath
 {
     /// <summary>
     /// 
     /// </summary>
-    public static readonly double Deg2Rad = Math.PI / 180;
+    private const double Deg2Rad = Math.PI / 180;
+
     /// <summary>
     /// 
     /// </summary>
@@ -18,6 +19,5 @@ public static class Mathematical
     /// </summary>
     /// <param name="degrees"></param>
     /// <returns></returns>
-    public static double GetRadians (double degrees) => degrees * Deg2Rad;
-    
+    public static double GetRadians (double degrees) => degrees * Deg2Rad; // change to use "this double degrees"
 }

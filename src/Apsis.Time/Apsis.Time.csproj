@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
     <PackageId>Apsis.Time</PackageId>
-    <Version>0.0.0</Version>
     <Description></Description>
-    <PackageTags>coordinates;geodetic;ecef;eci;wgs84;azimuth;elevation;satellite;orbital;topocentric</PackageTags>
+    <PackageTags>time;julian;julian2000;julianday;day;microsecond;year;month;second;J2000;epoch</PackageTags>
     <RepositoryUrl></RepositoryUrl>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageReadmeFile></PackageReadmeFile>
     <Authors>Charles Rasberry</Authors>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -26,4 +22,5 @@
   <ItemGroup>
     <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
+  
 </Project>

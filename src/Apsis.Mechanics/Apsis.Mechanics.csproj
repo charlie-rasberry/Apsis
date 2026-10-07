@@ -1,19 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
     <PackageId>Apsis.Mechanics</PackageId>
-    <Version>0.0.0</Version>
     <Description></Description>
-    <PackageTags>coordinates;geodetic;ecef;eci;wgs84;azimuth;elevation;satellite;orbital;topocentric</PackageTags>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageReadmeFile></PackageReadmeFile>
-    <Authors>Charles Rasberry</Authors>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>wgs84;azimuth;elevation;satellite;orbital;topocentric;leo;electromagnetic;waves</PackageTags>
+    
   </PropertyGroup>
 
   <ItemGroup>
