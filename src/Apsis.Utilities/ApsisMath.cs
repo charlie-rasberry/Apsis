@@ -3,7 +3,7 @@ namespace Apsis.Utilities;
 /// <summary>
 /// 
 /// </summary>
-public static class AMath
+public static class ApsisMath
 {
     /// <summary>
     /// 

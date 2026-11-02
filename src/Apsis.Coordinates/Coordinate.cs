@@ -80,8 +80,8 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
         // Do the formula
         // Scale by Micrometers 1e6
         // Return the stored/scaled version
-        longitude = AMath.GetRadians(longitude);
-        latitude = AMath.GetRadians(latitude);
+        longitude = ApsisMath.GetRadians(longitude);
+        latitude = ApsisMath.GetRadians(latitude);
         double cosLat = Math.Cos(latitude);
         double cosLong = Math.Cos(longitude);
         double primeVerticalRadius = PrimeVertical(latitude);
