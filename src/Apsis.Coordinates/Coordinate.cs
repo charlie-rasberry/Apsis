@@ -109,18 +109,6 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     }
     
     /// <summary>
-    /// Not needed yet
-    /// </summary>
-    /// <param name="latitudeRadians"></param>
-    /// <returns></returns>
-    public static double GeocentricRadius(double latitudeRadians)
-    {
-        //latitude = GetRadians(latitude);
-        return (Math.Sqrt((Math.Pow(Math.Pow(EquatorialRadiusA, 2) * Math.Cos(latitudeRadians), 2) + Math.Pow(Math.Pow(PolarRadiusB, 2) * Math.Sin(latitudeRadians), 2))
-                          /(Math.Pow(EquatorialRadiusA * Math.Cos(latitudeRadians), 2) + Math.Pow(PolarRadiusB * Math.Sin(latitudeRadians), 2)))) * 1000;
-    }
-
-    /// <summary>
     /// 
     /// </summary>
     /// <param name="latitudeRadians"></param>
