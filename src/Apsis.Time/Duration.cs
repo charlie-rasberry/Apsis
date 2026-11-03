@@ -239,5 +239,8 @@ public record struct Duration(long Us)
     /// six digits of microsecond precision.
     /// </summary>
     /// <returns>A formatted duration string.</returns>
-    public override string ToString() => $"{Seconds}.{Us % MicrosecondsPerSecond:D6}s";
+    public override string ToString()
+    {
+        return $"{(Seconds >= 0 ? "" : "-")}{Math.Abs(Seconds)}.{Math.Abs(Us % MicrosecondsPerSecond):D6}s";
+    }
 }
