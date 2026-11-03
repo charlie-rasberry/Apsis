@@ -33,7 +33,11 @@ public record struct Epoch // Julian day whole and fraction
     /// <returns></returns>
     public static Epoch JulianDayFromGregorian(long year, long month, long day, double ut1)
     {
-        return new Epoch(ScaleJulianDay(GregorianToJulian(year, month, day, ut1)));
+        long jdn = GregorianDayNumber(year, month, day);
+        long us = jdn * Duration.MicrosecondsPerDay
+                    - Duration.MicrosecondsPerDay / 2
+                    + (long) Math.Round(ut1 * Duration.MicrosecondsPerHour);
+        return new Epoch(us);
     }
 
     /// <summary>
@@ -57,17 +61,22 @@ public record struct Epoch // Julian day whole and fraction
         return (double)storedEpoch / Duration.MicrosecondsPerDay;
     }
 
-    /// <summary>
-    /// Takes julian day as a double and returns a long while maintaining the precision by multiplying it by a scaling factor (Microseconds per day...86_400_000_000)
-    /// </summary>
-    /// <param name="julianDay"></param>
-    /// <returns></returns>
-    private static long ScaleJulianDay(double julianDay)
+    private static long GregorianDayNumber(long year, long month, long day)
     {
-        return (long)(julianDay * Duration.MicrosecondsPerDay);
+        // Formula followed (Fliegel Van Flandern):
+        // A = INT((M - 14) / 12)
+        // JDN = INT(1461*(Y + 4800 + A)/4) + INT(367*(M - 2 - 12*A)/12) - INT(3*INT((Y + 4900 + A)/100)/4) + D - 32075
+        // Calendar ADJUSTMENT factor
+        long leapYearShift = (month - 14) / 12; // MUST truncate towards zero
+        // Gregorian day number
+        return (1461 * (year + 4800 + leapYearShift) / 4)
+                               + (367 * (month - 2 - 12 * leapYearShift) / 12)
+                               - (3 * ((year + 4900 + leapYearShift) / 100) / 4)
+                               + day
+                               - 32075;
     }
 
-/// <summary>
+    /// <summary>
     /// 
     /// D: Day of the month (e.g., 1 to 31).
     /// M: Month of the year (e.g., 1 for January, 12 for December).
@@ -92,21 +101,8 @@ public record struct Epoch // Julian day whole and fraction
     /// <returns></returns>
     private static double GregorianToJulian(long year, long month, long day, double ut1)
     {
-        // A = INT((M - 14) / 12)
-        // JDN = INT(1461*(Y + 4800 + A)/4) + INT(367*(M - 2 - 12*A)/12) - INT(3*INT((Y + 4900 + A)/100)/4) + D - 32075
-        
-        // Calendar ADJUSTMENT factor
-        long adjustmentFactor = (month - 14) / 12;
-        
-        // Julian Day NUMBER
-        long julianDayNumber = (1461 * (year + 4800 + adjustmentFactor) / 4)
-                               + (367 * (month - 2 - 12 * adjustmentFactor) / 12)
-                               - (3 * ((year + 4900 + adjustmentFactor) / 100) / 4)
-                               + day
-                               - 32075;
-        //Console.WriteLine($"DEBUG: {julianDayNumber}{(0.5 + ut1/24)}");
-        return julianDayNumber - 0.5 + ut1 / 24.0;
-        // equivalent of (ut1 >= 12 ? 1 : 0) + (((ut1 + 12.0) % 24.0) / 24.0)    is    0.5 + ut1/24
+        long jdn = GregorianDayNumber(year, month, day);
+        return jdn - 0.5 + ut1 / 24.0;
     }
 
     /// <summary>

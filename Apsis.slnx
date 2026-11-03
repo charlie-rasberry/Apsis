@@ -10,5 +10,8 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Apsis.Coordinates.Tests/Apsis.Coordinates.Tests.csproj" />
+    <Project Path="tests/Apsis.Time.Tests/Apsis.Time.Tests.csproj" />
+    <Project Path="tests/Apsis.Units.Tests/Apsis.Units.Tests.csproj" />
+    <Project Path="tests/Apsis.Utilities.Tests/Apsis.Utilities.Tests.csproj" />
   </Folder>
 </Solution>
