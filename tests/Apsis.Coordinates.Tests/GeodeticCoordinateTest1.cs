@@ -1,4 +1,0 @@
-﻿namespace Apsis.Coordinates.Tests;
-
-
-
