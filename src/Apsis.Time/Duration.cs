@@ -103,9 +103,9 @@ public record struct Duration(long Us)
     /// </summary>
     /// <param name="ticks">The number of ticks.</param>
     /// <returns>A duration representing the specified value.</returns>
-    public static Duration FromStopwatchTick(long ticks) // tick is in nanoseconds
+    public static Duration FromStopwatchTick(long ticks) 
     {
-        long microseconds = (ticks * 1_000_000) / Stopwatch.Frequency; // convert tick nanoseconds to microseconds, 1_000_000 to convert seconds to microseconds
+        long microseconds = (ticks / Stopwatch.Frequency) * 1_000_000 + (ticks % Stopwatch.Frequency) * 1_000_000 / Stopwatch.Frequency; // convert tick nanoseconds to microseconds, 1_000_000 to convert seconds to microseconds
         return new Duration(microseconds); 
     }
     /// <summary>
