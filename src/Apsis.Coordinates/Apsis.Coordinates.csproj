@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <PackageId>Apsis.Coordinates</PackageId>
-    <Description></Description>
+    <Description>Geodetic and ECEF coordinate types for .NET, built for precision.</Description>
     <PackageTags>coordinates;geodetic;ecef;eci;wgs84;azimuth;elevation;satellite;orbital;topocentric</PackageTags>
   </PropertyGroup>
 

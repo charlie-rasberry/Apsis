@@ -2,11 +2,8 @@
 
   <PropertyGroup>
     <PackageId>Apsis.Units</PackageId>
-    <Description></Description>
+    <Description>Strongly-typed distance and angle value types for .NET, avoiding unit-mixup bugs in scientific and geospatial code.</Description>
     <PackageTags>si;angle;distance;units;meters;radians;degrees;kilometers</PackageTags>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageReadmeFile></PackageReadmeFile>
     <Authors>Charles Rasberry</Authors>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

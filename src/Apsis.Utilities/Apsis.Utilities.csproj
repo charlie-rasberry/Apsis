@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Apsis.Utilities</PackageId>
-    <Description></Description>
+    <Description>Shared math and helper utilities used across the Apsis library.</Description>
     <PackageTags>general;utilities;tools;random;math</PackageTags>
   </PropertyGroup>
 

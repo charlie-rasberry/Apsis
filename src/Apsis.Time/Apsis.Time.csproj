@@ -2,11 +2,8 @@
 
   <PropertyGroup>
     <PackageId>Apsis.Time</PackageId>
-    <Description></Description>
+    <Description>High-precision Julian day epoch and microsecond-resolution duration types for .NET, built for precise calculations.</Description>
     <PackageTags>time;julian;julian2000;julianday;day;microsecond;year;month;second;J2000;epoch</PackageTags>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageReadmeFile></PackageReadmeFile>
     <Authors>Charles Rasberry</Authors>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
