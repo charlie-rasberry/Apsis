@@ -52,6 +52,7 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     private const double EllipsoidFlatteningF = 1 - (PolarRadiusB / EquatorialRadiusA);
     private const double OneMinusF = 1 - EllipsoidFlatteningF; // the flattening ratio
     private const double SquareEccentricity = 1 - (PolarRadiusB * PolarRadiusB) / (EquatorialRadiusA * EquatorialRadiusA);
+    
 
     
     /// <summary>
@@ -64,38 +65,33 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     /// <returns></returns>
     public static EcefCoordinate FromGeodeticLla(double latitude, double longitude, double altitude)
     {
-        //      London, UK
-        //      DD Latitude and longitude coordinates are: 51.509865, -0.118092
-        //      ECEF x y z      [ 3977787.91, -8198.61, 4969054.24 ] 
-        //      After testing: 3977787.910008 Y: -8198.60728  Z: 4969054.239987
-        // X: 2026736474463283 Y: 1933185610758203  Z: 5988631442304806
         
         // Get radians / conversions
         // Get Prime Vertical Radius = N(phi)
         // Do the formula
         // Scale by Micrometers 1e6
         // Return the stored/scaled version
-        longitude = ApsisMath.GetRadians(longitude);
-        latitude = ApsisMath.GetRadians(latitude);
+        longitude = ApsisMath.GetRadians(longitude); // Radians first
+        latitude = ApsisMath.GetRadians(latitude); 
+        var sinLat = Math.Sin(latitude);
+        var squareSinLat = sinLat * sinLat;
         double cosLat = Math.Cos(latitude);
         double cosLong = Math.Cos(longitude);
-        double primeVerticalRadius = PrimeVertical(latitude);
+        double primeVerticalRadius = PrimeVertical(latitude, squareSinLat);
         long xum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * cosLong) * MicrometersPerMeter));
         long yum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * Math.Sin(longitude)) * MicrometersPerMeter));
-        // double Z = ((Math.Pow(EquatorialRadius, 2) / Math.Pow(PolarRadius, 2)) * PrimeVerticalRadius + altitude) * Math.Sin(longitude);
-        // double Z = ((1 - (Math.Pow(EquatorialRadius, 2) / Math.Pow(PolarRadius, 2)) * PrimeVerticalRadius + altitude)) *
-        //            Math.Sin(longitude);
-        long zum = (long) (Math.Round(((OneMinusF * OneMinusF) * primeVerticalRadius + altitude) * Math.Sin(latitude) * MicrometersPerMeter));
+        long zum = (long) (Math.Round(((OneMinusF * OneMinusF) * primeVerticalRadius + altitude) * sinLat * MicrometersPerMeter));
         return new EcefCoordinate(xum, yum, zum);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="latitudeRadians"></param>
+    /// <param name="squareSinLat"></param>
     /// <returns></returns>
-    private static double PrimeVertical(double latitudeRadians)
+    private static double PrimeVertical(double latitudeRadians, double squareSinLat)
     {
-        return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * Math.Pow(Math.Sin(latitudeRadians), 2));
+        return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * squareSinLat);
     }
 }
