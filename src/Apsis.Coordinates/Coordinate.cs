@@ -85,7 +85,6 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
         double cosLat = Math.Cos(latitude);
         double cosLong = Math.Cos(longitude);
         double primeVerticalRadius = PrimeVertical(latitude);
-        Console.WriteLine($"primeVerticalRadius: {primeVerticalRadius}");
         long xum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * cosLong) * MicrometersPerMeter));
         long yum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * Math.Sin(longitude)) * MicrometersPerMeter));
         // double Z = ((Math.Pow(EquatorialRadius, 2) / Math.Pow(PolarRadius, 2)) * PrimeVerticalRadius + altitude) * Math.Sin(longitude);
