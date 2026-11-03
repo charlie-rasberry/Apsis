@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
-    <NoWarn>$(NoWarn);CS1591;CA1707</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CA1707;xUnit1026</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
