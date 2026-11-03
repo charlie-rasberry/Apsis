@@ -51,7 +51,8 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     
     private const double EllipsoidFlatteningF = 1 - (PolarRadiusB / EquatorialRadiusA);
     private const double OneMinusF = 1 - EllipsoidFlatteningF; // the flattening ratio
-    private static double SquareNumericalEccentricityOfEllipsoidE => 1 - (Math.Pow(PolarRadiusB, 2) / Math.Pow(EquatorialRadiusA, 2)); 
+    private const double SquareEccentricity = 1 - (PolarRadiusB * PolarRadiusB) / (EquatorialRadiusA * EquatorialRadiusA);
+
     
     /// <summary>
     /// Geodetic LLA to ECEF
@@ -95,6 +96,6 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     /// <returns></returns>
     private static double PrimeVertical(double latitudeRadians)
     {
-        return EquatorialRadiusA / Math.Sqrt(1 - SquareNumericalEccentricityOfEllipsoidE * Math.Pow(Math.Sin(latitudeRadians), 2));
+        return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * Math.Pow(Math.Sin(latitudeRadians), 2));
     }
 }
