@@ -36,7 +36,7 @@ public record struct Epoch // Julian day whole and fraction
         long jdn = GregorianDayNumber(year, month, day);
         long us = jdn * Duration.MicrosecondsPerDay
                     - Duration.MicrosecondsPerDay / 2
-                    + (long) Math.Round(ut1 * Duration.MicrosecondsPerHour);
+                    + (long) Math.Round(ut1 * Duration.MicrosecondsPerHour); 
         return new Epoch(us);
     }
 

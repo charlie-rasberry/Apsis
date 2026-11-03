@@ -49,12 +49,6 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     /// </summary>
     private const double PolarRadiusB = 6_356_752.3142;
     
-    /// <summary>
-    /// Radius along the equator in micrometers
-    /// </summary>
-    private const long EquatorialRadiusAum = (long) EquatorialRadiusA * MicrometersPerMeter;
-    private const long PolarRadiusBum = 635_675_231_420;
-
     private const double EllipsoidFlatteningF = 1 - (PolarRadiusB / EquatorialRadiusA);
     private const double OneMinusF = 1 - EllipsoidFlatteningF; // the flattening ratio
     private static double SquareNumericalEccentricityOfEllipsoidE => 1 - (Math.Pow(PolarRadiusB, 2) / Math.Pow(EquatorialRadiusA, 2)); 
@@ -93,37 +87,14 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
         long zum = (long) (Math.Round(((OneMinusF * OneMinusF) * primeVerticalRadius + altitude) * Math.Sin(latitude) * MicrometersPerMeter));
         return new EcefCoordinate(xum, yum, zum);
     }
-
-    private static void EcefToLla(in EcefCoordinate coordinate)
-    {
-        double x = coordinate.EcefX;
-        double y = coordinate.EcefY;
-        double z = coordinate.EcefZ;
-        
-        // We could use X = Math.Sqrt(Math.Pow(X, 2) * Math.Pow(Y, 2)), but we call it S in line with matlabs docs
-        double s = Math.Sqrt(Math.Pow(x, 2) * Math.Pow(z, 2)); 
-        
-        // reduced latitude: an auxiliary angle used for mapping ellipsoidal earth position to a reference sphere
-        double reducedLat = Math.Atan(z / (OneMinusF));
-    }
     
     /// <summary>
     /// 
     /// </summary>
     /// <param name="latitudeRadians"></param>
     /// <returns></returns>
-    public static double PrimeVertical(double latitudeRadians)
+    private static double PrimeVertical(double latitudeRadians)
     {
         return EquatorialRadiusA / Math.Sqrt(1 - SquareNumericalEccentricityOfEllipsoidE * Math.Pow(Math.Sin(latitudeRadians), 2));
-    }
-
-    /// <summary>
-    /// Scales a given coordinate lat or long or altitude by micrometers per meter
-    /// </summary>
-    /// <param name="coordinate"></param>
-    /// <returns></returns>
-    public static long ScaleCoordinate(double coordinate)
-    {
-        return (long)(coordinate * MicrometersPerMeter);
     }
 }
