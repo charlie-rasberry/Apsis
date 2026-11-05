@@ -14,12 +14,36 @@ public class DurationTests
     }
 
     [Theory]
-    [InlineData(1_999_999, 1)]
-    [InlineData(2_000_000, 2)]
-    [InlineData(-1_999_999, -1)]
-    public void Conversions_SecondsTruncateTowardZero(long us, long expected)
+    // Small durations
+    [InlineData(1_999_999, 1_999, 1, 0, 0, 0, 0)]
+    [InlineData(2_000_000, 2_000, 2, 0, 0, 0, 0)]
+    [InlineData(-1_999_999, -1_999, -1, 0, 0, 0, 0)]
+
+    // Unit boundaries
+    [InlineData(60_000_000, 60_000, 60, 1, 0, 0, 0)]
+    [InlineData(3_600_000_000, 3_600_000, 3_600, 60, 1, 0, 0)]
+    [InlineData(86_400_000_000, 86_400_000, 86_400, 1_440, 24, 1, 0)]
+    [InlineData(604_800_000_000, 604_800_000, 604_800, 10_080, 168, 7, 1)]
+
+    // Multiple units
+    [InlineData(1_234_567_890_123, 1_234_567_890, 1_234_567, 20_576, 342, 14, 2)]
+    [InlineData(2_419_200_000_000, 2_419_200_000, 2_419_200, 40_320, 672, 28, 4)]
+    [InlineData(31_449_600_000_000, 31_449_600_000, 31_449_600, 524_160, 8_736, 364, 52)]
+
+    // Negative durations
+    [InlineData(-60_000_000, -60_000, -60, -1, 0, 0, 0)]
+    [InlineData(-3_600_000_000, -3_600_000, -3_600, -60, -1, 0, 0)]
+    [InlineData(-86_400_000_000, -86_400_000, -86_400, -1_440, -24, -1, 0)]
+    [InlineData(-604_800_000_000, -604_800_000, -604_800, -10_080, -168, -7, -1)]
+    public void Conversions_SecondsTruncateTowardZero(long us, long ms, long s, long m, long h, long d, long w)
     {
         var duration = new Duration(us);
-        Assert.Equal(expected, duration.Seconds);
+        Assert.Equal(us, duration.Microseconds);
+        Assert.Equal(ms, duration.Milliseconds);
+        Assert.Equal(s, duration.Seconds);
+        Assert.Equal(m, duration.Minutes);
+        Assert.Equal(h, duration.Hours);
+        Assert.Equal(d, duration.Days);
+        Assert.Equal(w, duration.Weeks);
     }
 }
