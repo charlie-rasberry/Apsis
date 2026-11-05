@@ -67,4 +67,10 @@ public class DurationTests
         Assert.Equal(Duration.FromMicroseconds(5_000_000), Duration.FromMicroseconds(5_000) * 1_000L);
         Assert.Equal(Duration.FromMicroseconds(6_000),  Duration.FromMicroseconds(12_000) / 2);
     }
+
+    [Fact]
+    public void Ratio_ReturnsDouble()
+    {
+        Assert.Equal(2, Duration.FromHours(1) / Duration.FromMinutes(30));
+    }
 }
