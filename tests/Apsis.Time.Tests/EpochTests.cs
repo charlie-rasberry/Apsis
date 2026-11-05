@@ -57,9 +57,16 @@ public class EpochTests
         Assert.Equal(Epoch.JulianDayFromGregorian(2000,1,2,12.0).JulianMicroseconds, (j2000 + Duration.FromDays(1)).JulianMicroseconds);
     }
 
+    // Microseconds to JD to Microseconds
     [Fact]
     public void ToJulianDayFromUs_RoundTrips()
     {
         Assert.Equal(211_813_488_000_000_000, Epoch.ToJulianDayFromUs(211_813_488_000_000_000).JulianMicroseconds);
+    }
+
+    [Fact]
+    public void JulianDay_DerivesFromMicroseconds()
+    {
+        Assert.Equal(2451545.0, Epoch.ToJulianDayFromUs(211_813_488_000_000_000).JulianDay, 9);
     }
 }
