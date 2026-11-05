@@ -49,4 +49,11 @@ public class EpochTests
         var expected = Duration.MicrosecondsPerDay * expectedDays;
         Assert.Equal(expected, laterMonth.JulianMicroseconds - startingMonth.JulianMicroseconds);
     }
+
+    [Fact]
+    public void Operator_AddsDuration()
+    {
+        var j2000 = Epoch.JulianDayFromGregorian(2000, 1, 1, 12.0);
+        Assert.Equal(Epoch.JulianDayFromGregorian(2000,1,2,12.0).JulianMicroseconds, (j2000 + Duration.FromDays(1)).JulianMicroseconds);
+    }
 }
