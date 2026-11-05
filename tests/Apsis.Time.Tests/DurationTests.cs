@@ -71,6 +71,6 @@ public class DurationTests
     [Fact]
     public void Ratio_ReturnsDouble()
     {
-        Assert.Equal(2, Duration.FromHours(1) / Duration.FromMinutes(30));
+        Assert.Equal(2.0, Duration.FromHours(1) / Duration.FromMinutes(30));
     }
 }
