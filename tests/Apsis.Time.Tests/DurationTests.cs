@@ -12,4 +12,14 @@ public class DurationTests
         Assert.Equal(86_400_000_000, Duration.MicrosecondsPerDay);
         Assert.Equal(604_800_000_000, Duration.MicrosecondsPerWeek);
     }
+
+    [Theory]
+    [InlineData(1_999_999, 1)]
+    [InlineData(2_000_000, 2)]
+    [InlineData(-1_999_999, -1)]
+    public void Conversions_SecondsTruncateTowardZero(long us, long expected)
+    {
+        var duration = new Duration(us);
+        Assert.Equal(expected, duration.Seconds);
+    }
 }

@@ -89,7 +89,7 @@ public record struct Duration(long Us)
     /// </summary>
     /// <param name="microseconds">The number of microseconds.</param>
     /// <returns>A duration representing the specified value.</returns>
-    public static Duration FromMicroseconds(long microseconds) => new(microseconds);
+    public static Duration FromMicroseconds(long microseconds) => new(microseconds); // Debating whether to delete the constructor or this instead
 
     /// <summary>
     /// Creates a duration from a millisecond value.
