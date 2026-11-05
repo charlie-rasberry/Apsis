@@ -21,4 +21,21 @@ public class EpochTests
         var mar01 = Epoch.JulianDayFromGregorian(year, 3, 1, 0.0); // leap: divisible by 400
         Assert.Equal(expectedUs, mar01.JulianMicroseconds - feb28.JulianMicroseconds);
     }
+
+    [Theory]
+    [InlineData(0.5 / 3600)]
+    [InlineData(7.0 / 3)]
+    [InlineData(23.999999)]
+    [InlineData(13.7531)]
+    [InlineData(1.0 / 3600)]
+    public void FractionalUt1_IsExactToMicrosecond(double ut1)
+    {
+        var e = Epoch.JulianDayFromGregorian(2000, 1, 1, ut1);
+        var expected = 2451544L * Duration.MicrosecondsPerDay 
+                       + Duration.MicrosecondsPerDay / 2 
+                       + Math.Round(ut1 * Duration.MicrosecondsPerHour);
+        Assert.Equal(expected, e.JulianMicroseconds);
+    }
+    
+    
 }
