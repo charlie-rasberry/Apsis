@@ -36,6 +36,17 @@ public class EpochTests
                        + Math.Round(ut1 * Duration.MicrosecondsPerHour);
         Assert.Equal(expected, e.JulianMicroseconds);
     }
-    
-    
+
+    [Theory]
+    [InlineData(1L, 31L)]
+    [InlineData(2L, 28L)]
+    [InlineData(3L, 31L)]
+    [InlineData(4L, 30L)]
+    public void MonthAdjustment_UsesTruncation(long month, long expectedDays)
+    {
+        var startingMonth = Epoch.JulianDayFromGregorian(2001, month, 1, 0.0);
+        var laterMonth = Epoch.JulianDayFromGregorian(2001, month+1, 1, 0.0);
+        var expected = Duration.MicrosecondsPerDay * expectedDays;
+        Assert.Equal(expected, laterMonth.JulianMicroseconds - startingMonth.JulianMicroseconds);
+    }
 }
