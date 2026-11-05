@@ -46,4 +46,16 @@ public class DurationTests
         Assert.Equal(d, duration.Days);
         Assert.Equal(w, duration.Weeks);
     }
+
+    [Fact]
+    public void Factories_RoundTripThroughProperties()
+    {
+        Assert.Equal(1_000L, Duration.FromMicroseconds(1_000).Microseconds);
+        Assert.Equal(5_000L, Duration.FromMilliseconds(5).Microseconds);
+        Assert.Equal(5_000_000L, Duration.FromSeconds(5).Microseconds);
+        Assert.Equal(60_000_000L, Duration.FromMinutes(1).Microseconds);
+        Assert.Equal(3_600_000_000L, Duration.FromHours(1).Microseconds);
+        Assert.Equal(86_400_000_000L, Duration.FromDays(1).Microseconds);
+        Assert.Equal(604_800_000_000L, Duration.FromWeeks(1).Microseconds);
+    }
 }

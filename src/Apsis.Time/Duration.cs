@@ -98,6 +98,14 @@ public record struct Duration(long Us)
     /// <returns>A duration representing the specified value.</returns>
     public static Duration FromMilliseconds(long milliseconds) => new(milliseconds * MicrosecondsPerMillisecond);
 
+    
+    /// <summary>
+    /// Creates a duration from a second value.
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <returns></returns>
+    public static Duration FromSeconds(long seconds) => new(seconds * MicrosecondsPerSecond);
+    
     /// <summary>
     /// Creates a duration from stopwatch ticks
     /// </summary>
