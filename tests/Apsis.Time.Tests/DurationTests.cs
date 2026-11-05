@@ -58,4 +58,13 @@ public class DurationTests
         Assert.Equal(86_400_000_000L, Duration.FromDays(1).Microseconds);
         Assert.Equal(604_800_000_000L, Duration.FromWeeks(1).Microseconds);
     }
+
+    [Fact]
+    public void Operators_AddSubtractScale()
+    {
+        Assert.Equal(Duration.FromMicroseconds(2_000), Duration.FromMicroseconds(1_000) + Duration.FromMicroseconds(1_000));
+        Assert.Equal(Duration.FromMicroseconds(3_000), Duration.FromMicroseconds(4_000) - Duration.FromMicroseconds(1_000));
+        Assert.Equal(Duration.FromMicroseconds(5_000_000), Duration.FromMicroseconds(5_000) * 1_000L);
+        Assert.Equal(Duration.FromMicroseconds(6_000),  Duration.FromMicroseconds(12_000) / 2);
+    }
 }
