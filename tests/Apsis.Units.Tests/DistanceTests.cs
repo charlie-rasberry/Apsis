@@ -17,4 +17,13 @@ public class DistanceTests
     {
         Assert.Equal(2.5, Distance.FromKilometres(2.5).Kilometres);
     }
+
+    [Fact]
+    public void Operators_AddSubtract()
+    {   
+        var a = new Distance(10250);
+        var b = Distance.FromKilometres(1.5);
+        Assert.Equal(11750, (a + b).Metres);
+        Assert.Equal(-8750, (b - a).Metres);
+    }
 }
