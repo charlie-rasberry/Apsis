@@ -99,9 +99,12 @@ public class DurationTests
     [InlineData(-1_500_000, "-1.500000s")]
     [InlineData(-500_000,  "-0.500000s")]
     [InlineData(0,"0.000000s")]
+    [InlineData(-1,"-0.000001s")]
     public void ToStringHandlesNegatives(long us, string expected)
     {
         var duration = new Duration(us);
         Assert.Equal(expected, duration.ToString());
     }
+    
+    
 }
