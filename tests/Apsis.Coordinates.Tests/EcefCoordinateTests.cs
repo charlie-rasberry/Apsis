@@ -42,6 +42,6 @@ public class EcefCoordinateTests
     [Fact]
     public void MicrometreBackingIsExact()
     {
-        Assert.Equal(6378137_000000L, EcefCoordinate.FromGeodeticLla(0,0,0).EcefXMicrometers);
+        Assert.Equal(6378137_000000L, EcefCoordinate.FromGeodeticLla(0,0,0).EcefXMicrometres);
     }
 }
