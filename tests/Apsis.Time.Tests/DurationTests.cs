@@ -85,4 +85,23 @@ public class DurationTests
                          && Duration.FromMicroseconds(1_000_000_000_000) != Duration.FromMicroseconds(us1)); // Not comparing us directly, not implemented by me
         Assert.Equal(expected2, Duration.FromMicroseconds(9_000_000_000_000) >= Duration.FromMicroseconds(us2));
     }
+
+    [Fact]
+    public void Deconstruct_YieldsUsAndMs()
+    {
+        var (us, ms) = (Duration.FromMilliseconds(1500));
+        Assert.Equal(1_500_000L, us);
+        Assert.Equal(1_500L, ms);
+    }
+
+    [Theory]
+    [InlineData(1_500_000, "1.500000s")]
+    [InlineData(-1_500_000, "-1.500000s")]
+    [InlineData(-500_000,  "-0.500000s")]
+    [InlineData(0,"0.000000s")]
+    public void ToStringHandlesNegatives(long us, string expected)
+    {
+        var duration = new Duration(us);
+        Assert.Equal(expected, duration.ToString());
+    }
 }
