@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Apsis.Time.Tests;
 
 public class DurationTests
@@ -105,6 +107,17 @@ public class DurationTests
         var duration = new Duration(us);
         Assert.Equal(expected, duration.ToString());
     }
-    
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(3600)]
+    [InlineData(10_000)]
+    [InlineData(86_400)]
+    [InlineData(9_223_372_036)] // Max value before overflow for linux: Stopwatch.Frequency * long.MaxValue
+    public void FromStopwatchTick_DoesNotOverflow(long seconds)
+    {
+        var ticks = seconds * Stopwatch.Frequency;
+        Assert.Equal(seconds * 1_000_000, Duration.FromStopwatchTick(ticks).Microseconds);
+    }
     
 }
