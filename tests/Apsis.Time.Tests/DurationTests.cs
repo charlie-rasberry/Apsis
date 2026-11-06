@@ -73,4 +73,16 @@ public class DurationTests
     {
         Assert.Equal(2.0, Duration.FromHours(1) / Duration.FromMinutes(30));
     }
+
+    [Theory] 
+    [InlineData(100_000_000, true, 9_000_000_000_000, true)]
+    public void Comparisons(long us1, bool expected1, long us2, bool expected2)
+    {
+        Assert.Equal(expected1, Duration.FromMicroseconds(1_000_000) < Duration.FromMicroseconds(us1)
+                         && Duration.FromMicroseconds(1_000_000) <= Duration.FromMicroseconds(us1)
+                         && Duration.FromMicroseconds(1_000_000_000) > Duration.FromMicroseconds(us1)
+                         && Duration.FromMicroseconds(1_000_000_000) >= Duration.FromMicroseconds(us1)
+                         && Duration.FromMicroseconds(1_000_000_000_000) != Duration.FromMicroseconds(us1)); // Not comparing us directly, not implemented by me
+        Assert.Equal(expected2, Duration.FromMicroseconds(9_000_000_000_000) >= Duration.FromMicroseconds(us2));
+    }
 }
