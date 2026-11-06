@@ -16,5 +16,15 @@ public class EcefCoordinateTests
         Assert.Equal(y, c.EcefY, 6);
         Assert.Equal(z, c.EcefZ, 6);
     }
+
+    [Fact]
+    public void London_MatchesReference_WithinOneCentimetre()
+    {
+        const double tolerance = 0.01;
+        var c = EcefCoordinate.FromGeodeticLla(51.509865, -0.118092, 11.0); // don't use 0
+        Assert.Equal(3977787.91, c.EcefX, tolerance);
+        Assert.Equal(-8198.61, c.EcefY, tolerance);
+        Assert.Equal(4969054.24, c.EcefZ, tolerance);
+    }
     
 }
