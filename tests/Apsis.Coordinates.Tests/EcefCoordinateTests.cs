@@ -38,4 +38,10 @@ public class EcefCoordinateTests
     {
         Assert.Equal(6399593.625804, EcefCoordinate.PrimeVertical(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b, verified
     }
+
+    [Fact]
+    public void MicrometreBackingIsExact()
+    {
+        Assert.Equal(6378137_000000L, EcefCoordinate.FromGeodeticLla(0,0,0).EcefXMicrometers);
+    }
 }
