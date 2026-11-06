@@ -11,19 +11,6 @@ namespace Apsis.Coordinates;
 public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers, long EcefZMicrometers) 
 {
     /// <summary>
-    /// ECEF x-axis value
-    /// </summary>
-    public long EcefXum => EcefXMicrometers;
-    /// <summary>
-    /// ECEF y-axis value
-    /// </summary>
-    public long EcefYum => EcefYMicrometers;
-    /// <summary>
-    /// ECEF z-axis value, through the North Pole
-    /// </summary>
-    public long EcefZum => EcefZMicrometers;
-    
-    /// <summary>
     /// Ecef X in meters
     /// </summary>
     public double EcefX => (double) EcefXMicrometers / MicrometersPerMeter;
@@ -77,7 +64,7 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
         var squareSinLat = sinLat * sinLat;
         double cosLat = Math.Cos(latitude);
         double cosLong = Math.Cos(longitude);
-        double primeVerticalRadius = PrimeVertical(squareSinLat);
+        double primeVerticalRadius = PrimeVerticalRadius(squareSinLat);
         long xum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * cosLong) * MicrometersPerMeter));
         long yum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * Math.Sin(longitude)) * MicrometersPerMeter));
         long zum = (long) (Math.Round(((OneMinusF * OneMinusF) * primeVerticalRadius + altitude) * sinLat * MicrometersPerMeter));
@@ -85,11 +72,11 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     }
 
     /// <summary>
-    /// 
+    /// Returns the prime vertical radius of curvature of earth at a given sin(latitude)^2 on the WGS 84 Ellipsoid 
     /// </summary>
-    /// <param name="squareSinLat"></param>
-    /// <returns></returns>
-    public static double PrimeVertical(double squareSinLat)
+    /// <param name="squareSinLat">The square of the sine of the geodetic latitude: sin(lat) * sin(lat).</param>
+    /// <returns>The prime vertical radius of curvature in meters.</returns>
+    public static double PrimeVerticalRadius(double squareSinLat)
     {
         return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * squareSinLat);
     }

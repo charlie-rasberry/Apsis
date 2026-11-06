@@ -30,13 +30,13 @@ public class EcefCoordinateTests
     [Fact]
     public void PrimeVertical_AtEquator_IsSemiMajorAxis()
     {
-        Assert.Equal(6378137.0, EcefCoordinate.PrimeVertical(0), 6); // exact
+        Assert.Equal(6378137.0, EcefCoordinate.PrimeVerticalRadius(0), 6); // exact
     }
     
     [Fact]
     public void PrimeVertical_AtPole_IsASquaredOverB()
     {
-        Assert.Equal(6399593.625804, EcefCoordinate.PrimeVertical(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b, verified
+        Assert.Equal(6399593.625804, EcefCoordinate.PrimeVerticalRadius(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b, verified
     }
 
     [Fact]
