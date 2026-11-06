@@ -20,11 +20,22 @@ public class EcefCoordinateTests
     [Fact]
     public void London_MatchesReference_WithinOneCentimetre()
     {
-        const double tolerance = 0.01;
+        const double tolerance = 0.01; // works up to 1/2 cm
         var c = EcefCoordinate.FromGeodeticLla(51.509865, -0.118092, 11.0); // don't use 0
         Assert.Equal(3977787.91, c.EcefX, tolerance);
         Assert.Equal(-8198.61, c.EcefY, tolerance);
         Assert.Equal(4969054.24, c.EcefZ, tolerance);
     }
+
+    [Fact]
+    public void PrimeVertical_AtEquator_IsSemiMajorAxis()
+    {
+        Assert.Equal(6378137.0, EcefCoordinate.PrimeVertical(0), 6); // exact
+    }
     
+    [Fact]
+    public void PrimeVertical_AtPole_IsASquaredOverB()
+    {
+        Assert.Equal(6399593.625804, EcefCoordinate.PrimeVertical(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b, verified
+    }
 }

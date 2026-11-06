@@ -77,7 +77,7 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
         var squareSinLat = sinLat * sinLat;
         double cosLat = Math.Cos(latitude);
         double cosLong = Math.Cos(longitude);
-        double primeVerticalRadius = PrimeVertical(latitude, squareSinLat);
+        double primeVerticalRadius = PrimeVertical(squareSinLat);
         long xum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * cosLong) * MicrometersPerMeter));
         long yum = (long) (Math.Round(((primeVerticalRadius + altitude) * cosLat * Math.Sin(longitude)) * MicrometersPerMeter));
         long zum = (long) (Math.Round(((OneMinusF * OneMinusF) * primeVerticalRadius + altitude) * sinLat * MicrometersPerMeter));
@@ -87,10 +87,9 @@ public record struct EcefCoordinate(long EcefXMicrometers, long EcefYMicrometers
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="latitudeRadians"></param>
     /// <param name="squareSinLat"></param>
     /// <returns></returns>
-    private static double PrimeVertical(double latitudeRadians, double squareSinLat)
+    public static double PrimeVertical(double squareSinLat)
     {
         return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * squareSinLat);
     }
