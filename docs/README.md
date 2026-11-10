@@ -4,7 +4,7 @@ A .NET library for accurate, fast coordinate, time, and (eventually) orbital-mec
 
 ## Status
 
-Early development, pre-v0.1.0.
+Early development.
 
 ## Vision
 
