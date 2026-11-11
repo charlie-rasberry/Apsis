@@ -27,18 +27,33 @@ public readonly record struct EcefCoordinate(long EcefXMicrometres, long EcefYMi
     /// MicrometresPerMeter
     /// </summary>
     private const long MicrometresPerMeter = 1_000_000;
-    /// <summary>
-    /// Radius along the equator in metres
-    /// </summary>
-    private const double EquatorialRadiusA = 6_378_137.0;
-    /// <summary>
-    /// Radius along the North or South Pole in metres
-    /// </summary>
-    private const double PolarRadiusB = 6_356_752.3142;
     
-    private const double EllipsoidFlatteningF = 1 - (PolarRadiusB / EquatorialRadiusA);
-    private const double OneMinusF = 1 - EllipsoidFlatteningF; // the flattening ratio
-    private const double SquareEccentricity = 1 - (PolarRadiusB * PolarRadiusB) / (EquatorialRadiusA * EquatorialRadiusA);
+    /// <summary>
+    /// WGS84 Semi-major axis (a), Radius along the equator in metres
+    /// </summary>
+    private const double EquatorialRadius = 6_378_137.0;
+    
+    /// <summary>
+    /// Semi-minor axis (b), Radius along the North or South Pole in metres
+    /// </summary>
+    private const double PolarRadius = EquatorialRadius * (1 - Flattening);
+
+    /// <summary>
+    /// WGS84 Reciprocal of flattening, 1/f
+    /// </summary>
+    private const double ReciprocalOfFlattening = 298.257223563;
+    
+    /// <summary>
+    /// Ellipsoid flattening derived from WGS84 reciprocal of flattening
+    /// </summary>
+    private const double Flattening = 1 / ReciprocalOfFlattening;
+    
+    private const double OneMinusF = 1 - Flattening; // the flattening ratio
+    
+    /// <summary>
+    /// First eccentricity squared (e²)
+    /// </summary>
+    private const double SquareEccentricity = (2 * Flattening) - (Flattening * Flattening);
     
 
     
@@ -78,6 +93,6 @@ public readonly record struct EcefCoordinate(long EcefXMicrometres, long EcefYMi
     /// <returns>The prime vertical radius of curvature in metres.</returns>
     public static double PrimeVerticalRadius(double squareSinLat)
     {
-        return EquatorialRadiusA / Math.Sqrt(1 - SquareEccentricity * squareSinLat);
+        return EquatorialRadius / Math.Sqrt(1 - SquareEccentricity * squareSinLat);
     }
 }
