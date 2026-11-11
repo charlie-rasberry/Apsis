@@ -7,8 +7,8 @@ public class EcefCoordinateTests
     [InlineData(0, 0, 1000, 6379137, 0, 0)]         // exact. altitude adds along the normal
     [InlineData(0, 90, 0, 0, 6378137, 0)]           // exact
     [InlineData(0, 180, 0, -6378137, 0, 0)]         // exact
-    [InlineData(90, 0, 0, 0, 0, 6356752.3142)]      // exact. um: 6356752314200  (= polar radius (b))
-    [InlineData(-90, 0, 0, 0, 0, -6356752.3142)]    // exact
+    [InlineData(90, 0, 0, 0, 0, 6356752.314245)]      // exact. um: 6356752314245.179  (= polar radius (b)) *NEW* Changed from 6356752314200 or 6356752.3142
+    [InlineData(-90, 0, 0, 0, 0, -6356752.314245)]    // exact
     public void GeodeticToEcef(double lat, double lon, double alt, double x, double y, double z)
     {
         var c = EcefCoordinate.FromGeodeticLla(lat, lon, alt);
@@ -36,9 +36,9 @@ public class EcefCoordinateTests
     [Fact]
     public void PrimeVertical_AtPole_IsASquaredOverB()
     {
-        Assert.Equal(6399593.625804, EcefCoordinate.PrimeVerticalRadius(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b, verified
+Assert.Equal(6399593.625758, EcefCoordinate.PrimeVerticalRadius(Math.Sin(Math.PI / 2) * Math.Sin(Math.PI / 2)), 6); // = a^2/b = 6399593.62575849...    }
     }
-
+    
     [Fact]
     public void MicrometreBackingIsExact()
     {
