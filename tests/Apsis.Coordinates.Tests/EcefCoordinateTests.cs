@@ -2,6 +2,9 @@ namespace Apsis.Coordinates.Tests;
 
 public class EcefCoordinateTests
 {
+    // The value used for polar radius (b), using python
+    // >>> Decimal(6_378_137 * ( 1 - (1/298.257223563)))
+    // Decimal('6356752.31424517929553985595703125')
     [Theory]
     [InlineData(0, 0, 0, 6378137, 0, 0)]            // exact. um: 6378137000000, 0, 0
     [InlineData(0, 0, 1000, 6379137, 0, 0)]         // exact. altitude adds along the normal
