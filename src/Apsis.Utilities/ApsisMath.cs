@@ -28,5 +28,12 @@ public static class ApsisMath
     /// <param name="radians"></param>
     /// <returns></returns>
     public static double ToDegrees(this double radians) => radians * Rad2DegFactor;
-    
+ 
+    /// <summary>
+    /// Normalise radians to [0, 2π)
+    /// </summary>
+    /// <param name="radians"></param>
+    /// <returns></returns>
+    public static double NormaliseRadians(this double radians) => radians % (2 * Math.PI);
+
 }

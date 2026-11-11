@@ -19,7 +19,7 @@ public readonly record struct Angle(double Radians)
     /// </summary>
     /// <param name="radians"></param>
     /// <returns></returns>
-    public static Angle FromRadians(double radians) => new(radians);
+    public static Angle FromRadians(double radians) => new(radians.NormaliseRadians());
     
     /// <summary>
     /// Get degrees derived from radians, not stored.
