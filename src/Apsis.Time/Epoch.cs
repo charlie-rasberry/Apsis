@@ -60,15 +60,53 @@ public readonly record struct Epoch // Julian day whole and fraction
     {
         return (double)storedEpoch / Duration.MicrosecondsPerDay;
     }
-
+    
+    /// <summary>
+    /// Calculates the Julian Day Number (JDN) from a Gregorian calendar date using the Fliegel and Van Flandern algorithm.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Implements the standard integer-division formula:
+    /// <c>JDN = (1461 * (Y + 4800 + A) / 4) + (367 * (M - 2 - 12 * A) / 12) - (3 * ((Y + 4900 + A) / 100) / 4) + D - 32075</c>
+    /// </para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term><c>14</c> and <c>12</c> (Month Shift):</term>
+    /// <description>Used in <c>(M - 14) / 12</c> to force January (<c>1</c>) and February (<c>2</c>) to evaluate to <c>-1</c>, while all other months evaluate to <c>0</c>.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>2</c> and <c>12</c> (Calendar Re-indexing):</term>
+    /// <description>Used in <c>M - 2 - 12 * A</c> to shift the year start to March (month <c>1</c>) and push February to month <c>12</c>, placing leap days at the very end of the mathematical year.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>1461</c> and <c>4</c> (Julian Cycle):</term>
+    /// <description><c>1461</c> is the exact number of days in a 4-year cycle (<c>365 * 3 + 366</c>). Dividing by <c>4</c> distributes days across years and automatically adds a leap day every 4 years.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>367</c> and <c>12</c> (Month Length Approximation):</term>
+    /// <description>The ratio <c>367 / 12</c> (<c>30.583</c>) replicates the alternating 30- and 31-day sequence from March through January via integer truncation, removing the need for a lookup table.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>100</c>, <c>3</c>, and <c>4</c> (Gregorian Century Correction):</term>
+    /// <description>The Gregorian calendar drops leap years on century boundaries (<c>100</c>) unless divisible by <c>400</c>. Subtracting <c>(3 * century) / 4</c> removes exactly 3 leap days every 400 years.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>4800</c> and <c>4900</c> (Positive Offset):</term>
+    /// <description>Added to the year to ensure all intermediate values stay strictly positive for ancient BCE dates, avoiding negative integer truncation issues.</description>
+    /// </item>
+    /// <item>
+    /// <term><c>32075</c> (Epoch Alignment):</term>
+    /// <description>Subtracts the excess days introduced by the <c>4800</c>/<c>4900</c> year offsets, aligning day <c>0</c> with the start of the Julian Period.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    /// <param name="year">Gregorian year as yyyy (e.g., 2026).</param>
+    /// <param name="month">Gregorian month of the year as mm (1 for January to 12 for December).</param>
+    /// <param name="day">Gregorian day of the month as dd (1 to 31).</param>
+    /// <returns>The Julian Day Number corresponding to the given Gregorian date.</returns>
     private static long GregorianDayNumber(long year, long month, long day)
     {
-        // Formula followed (Fliegel Van Flandern):
-        // A = INT((M - 14) / 12)
-        // JDN = INT(1461*(Y + 4800 + A)/4) + INT(367*(M - 2 - 12*A)/12) - INT(3*INT((Y + 4900 + A)/100)/4) + D - 32075
-        // Calendar ADJUSTMENT factor
         long leapYearShift = (month - 14) / 12; // MUST truncate towards zero
-        // Gregorian day number
         return (1461 * (year + 4800 + leapYearShift) / 4)
                                + (367 * (month - 2 - 12 * leapYearShift) / 12)
                                - (3 * ((year + 4900 + leapYearShift) / 100) / 4)
