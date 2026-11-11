@@ -11,7 +11,7 @@ namespace Apsis.Time;
 /// <param name="Us">
 /// The total duration expressed in microseconds.
 /// </param>
-public record struct Duration(long Us)
+public readonly record struct Duration(long Us)
 {
     // Constants
 

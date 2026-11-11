@@ -3,7 +3,7 @@ namespace Apsis.Time;
 /// Epoch, the date to set as a reference / starting point
 /// The Julian date (JD) of any instant is the Julian day number plus the fraction of a day since the preceding noon in Universal Time.
 /// </summary>
-public record struct Epoch // Julian day whole and fraction
+public readonly record struct Epoch // Julian day whole and fraction
 {
     /// <summary>
     /// Version of the julian day we store to avoid floating point precision issues

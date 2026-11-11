@@ -8,7 +8,7 @@ namespace Apsis.Coordinates;
 /// Longitude
 /// GeodeticAltitude
 /// </summary>
-public record struct EcefCoordinate(long EcefXMicrometres, long EcefYMicrometres, long EcefZMicrometres) 
+public readonly record struct EcefCoordinate(long EcefXMicrometres, long EcefYMicrometres, long EcefZMicrometres) 
 {
     /// <summary>
     /// Ecef X in metres
