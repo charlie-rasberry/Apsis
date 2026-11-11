@@ -73,8 +73,8 @@ public readonly record struct EcefCoordinate(long EcefXMicrometres, long EcefYMi
         // Do the formula
         // Scale by Micrometres 1e6
         // Return the stored/scaled version
-        longitude = ApsisMath.GetRadians(longitude); // Radians first
-        latitude = ApsisMath.GetRadians(latitude); 
+        longitude = longitude.ToRadians(); // Radians first
+        latitude = latitude.ToRadians(); 
         var sinLat = Math.Sin(latitude);
         var squareSinLat = sinLat * sinLat;
         double cosLat = Math.Cos(latitude);

@@ -8,24 +8,25 @@ public static class ApsisMath
     /// <summary>
     /// 
     /// </summary>
-    private const double Deg2RadFactor = Math.PI / 180;
+    public const double Deg2RadFactor = Math.PI / 180;
 
     /// <summary>
     /// 
     /// </summary>
     public const double Rad2DegFactor = 180.0 / Math.PI;
+    
     /// <summary>
     /// 
     /// </summary>
     /// <param name="degrees"></param>
     /// <returns></returns>
-    public static double GetRadians (double degrees) => degrees * Deg2RadFactor; // change to use "this double degrees"
+    public static double ToRadians(this double degrees) => degrees * Deg2RadFactor;
     
     /// <summary>
     /// 
     /// </summary>
     /// <param name="radians"></param>
     /// <returns></returns>
-    public static double GetDegrees (double radians) => radians * Rad2DegFactor;
+    public static double ToDegrees(this double radians) => radians * Rad2DegFactor;
     
 }

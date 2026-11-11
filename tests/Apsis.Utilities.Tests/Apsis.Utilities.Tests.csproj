@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Apsis.Units\Apsis.Units.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Utilities\Apsis.Utilities.csproj" />
   </ItemGroup>
 
