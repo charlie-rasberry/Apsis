@@ -6,6 +6,9 @@
 /// <param name="Radians"></param>
 public readonly record struct Angle(double Radians)
 {
+    /// <summary>
+    /// Degrees from radians
+    /// </summary>
     public double Degrees => Radians *  (180 / Math.PI);
     /// <summary>
     /// Return the angle in degrees not radians

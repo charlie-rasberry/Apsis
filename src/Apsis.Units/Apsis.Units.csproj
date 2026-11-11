@@ -15,10 +15,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
-  <PropertyGroup>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
   
   <ItemGroup>
     <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
