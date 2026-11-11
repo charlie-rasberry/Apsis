@@ -77,35 +77,6 @@ public readonly record struct Epoch // Julian day whole and fraction
     }
 
     /// <summary>
-    /// 
-    /// D: Day of the month (e.g., 1 to 31).
-    /// M: Month of the year (e.g., 1 for January, 12 for December).
-    /// Y: Year (e.g., 2026).
-    /// 
-    /// 14 and 12: Used together in INT((M - 14) / 12) to force January (M=1) and February (M=2) to result in -1.
-    /// For all other months, it results in 0.
-    /// 
-    /// 2 and 12: Used in M - 2 - 12*A to re-index the months so that March becomes month 1 and February becomes month 12.
-    /// This places the "problematic" leap day (February 29) at the very end of the mathematical year.
-    ///
-    /// 1461: The exact number of days in a standard 4-year Julian cycle (\(365 \times 3 + 366 = 1461\)).
-    /// 4: Divided into the total to distribute those days across years, inherently accounting for the standard Julian leap year every 4 years.
-    ///
-    /// 367 and 12: The fraction 367/12 equals 30.583. When multiplied by the shifted month number and passed through, it perfectly replicates the alternating 30 and 31-day sequence of the calendar from March through January without needing an internal calendar database.
-    ///
-    /// 100: Represents a century. The Gregorian calendar omits leap years on century years unless divisible by 400.3 and 4: The term INT(3 * INT(...) / 4) strips out exactly 3 leap days every 400 years (e.g., dropping them in 1700, 1800, and 1900, but keeping it in 2000) to keep the formula tracking the modern Gregorian calendar instead of the older Julian calendar.
-    ///
-    /// 4800 and 4900: Added to the year variables to ensure that all intermediate calculations remain strictly positive numbers, even when calculating ancient historical BC dates. This prevents modern computer processors from mishandling negative integer division truncation.32075: The final offset correction. It subtracts the excess days introduced by adding 4800/4900 years, cleanly aligning the final total to day 0 on the exact day the Julian Period began.
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    private static double GregorianToJulian(long year, long month, long day, double ut1)
-    {
-        long jdn = GregorianDayNumber(year, month, day);
-        return jdn - 0.5 + ut1 / 24.0;
-    }
-
-    /// <summary>
     /// Update the inputted epoch by a number of microseconds
     /// </summary>
     /// <param name="jd"></param>
