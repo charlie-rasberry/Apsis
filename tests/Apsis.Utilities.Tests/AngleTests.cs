@@ -58,6 +58,8 @@ public class AngleTests
     [InlineData(90, 5 * Math.PI / 2)]
     [InlineData(45, 9 * Math.PI / 4)]
     [InlineData(180, 3 * Math.PI)]
+    [InlineData(-180, 3 * -Math.PI)]
+
     public void Wraparound_2PiPlus(double degrees, double radians)
     {
         var angle = Angle.FromRadians(radians);
