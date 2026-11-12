@@ -128,6 +128,16 @@ public class DurationTests
     }
 
     [Theory]
+    [InlineData(1)]
+    [InlineData(-3600)]
+    public void Zero_DurationPlusZero(long seconds)
+    {
+        var duration = Duration.FromSeconds(seconds);
+        Assert.Equal(duration, duration + Duration.Zero);
+    }
+    
+
+    [Theory]
     [InlineData(1, -1_000_000)]
     [InlineData(-1, 1_000_000)]
     public void Negate_Seconds(long seconds, long negatedMicroseconds)
