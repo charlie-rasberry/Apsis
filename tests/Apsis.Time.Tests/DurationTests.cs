@@ -119,5 +119,11 @@ public class DurationTests
         var ticks = seconds * Stopwatch.Frequency;
         Assert.Equal(seconds * 1_000_000, Duration.FromStopwatchTick(ticks).Microseconds);
     }
+
+    [Fact]
+    public void Zero_IsDefault()
+    {
+        Assert.Equal(Duration.Zero, default(Duration));
+    }
     
 }

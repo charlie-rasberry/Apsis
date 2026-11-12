@@ -82,6 +82,11 @@ public readonly record struct Duration(long Us)
     /// </summary>
     public long Weeks => Us / MicrosecondsPerWeek;
 
+    /// <summary>
+    /// Alias for an empty or default <see cref="Duration"/>.
+    /// </summary>
+    public static Duration Zero => default;
+
     // Factories
 
     /// <summary>
@@ -97,7 +102,6 @@ public readonly record struct Duration(long Us)
     /// <param name="milliseconds">The number of milliseconds.</param>
     /// <returns>A duration representing the specified value.</returns>
     public static Duration FromMilliseconds(long milliseconds) => new(milliseconds * MicrosecondsPerMillisecond);
-
     
     /// <summary>
     /// Creates a duration from a second value.
@@ -143,44 +147,6 @@ public readonly record struct Duration(long Us)
     /// <param name="weeks">The number of weeks.</param>
     /// <returns>A duration representing the specified value.</returns>
     public static Duration FromWeeks(long weeks) => new(weeks * MicrosecondsPerWeek);
-
-    // Getters
-
-    /// <summary>
-    /// Gets the total duration in milliseconds.
-    /// </summary>
-    /// <returns>The total number of milliseconds.</returns>
-    public long GetMilliseconds() => Milliseconds;
-
-    /// <summary>
-    /// Gets the total duration in seconds.
-    /// </summary>
-    /// <returns>The total number of seconds.</returns>
-    public long GetSeconds() => Seconds;
-
-    /// <summary>
-    /// Gets the total duration in minutes.
-    /// </summary>
-    /// <returns>The total number of minutes.</returns>
-    public long GetMinutes() => Minutes;
-
-    /// <summary>
-    /// Gets the total duration in hours.
-    /// </summary>
-    /// <returns>The total number of hours.</returns>
-    public long GetHours() => Hours;
-
-    /// <summary>
-    /// Gets the total duration in days.
-    /// </summary>
-    /// <returns>The total number of days.</returns>
-    public long GetDays() => Days;
-
-    /// <summary>
-    /// Gets the total duration in weeks.
-    /// </summary>
-    /// <returns>The total number of weeks.</returns>
-    public long GetWeeks() => Weeks;
 
     // Overloads
 
