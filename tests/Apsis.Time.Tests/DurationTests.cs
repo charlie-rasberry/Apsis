@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Apsis.Time.Tests;
 
@@ -192,5 +193,28 @@ public class DurationTests
         Assert.Equal(-1, Duration.FromMicroseconds(-long.MaxValue).CompareTo(Duration.FromMicroseconds(1)));
         Assert.Equal(0, Duration.FromMicroseconds(long.MaxValue).CompareTo(Duration.FromMicroseconds(long.MaxValue)));
         Assert.Equal(-1, Duration.FromMicroseconds(long.MinValue).CompareTo(Duration.FromMicroseconds(1)));
+    }
+
+    [Theory]
+    [InlineData(100, 1_500_000, 1_000, 1_000_000, 1_500_000_000, 100, 1_500_000_000_000)]
+    [InlineData(1, 50_000, 10_000, 5_000, 1_000, 500, 1)]
+    [InlineData(0, 500, 0, 250, 10_000, 5, 1_000)]
+    [InlineData(-5_000, 100, -500, 0, -5_000, 2_000, -10)]
+    [InlineData(42, 100, 42, 999, 42, 500, 42)]
+    [InlineData(long.MinValue, 0, long.MaxValue, -1, 1_000_000, long.MinValue, 500)]
+    [InlineData(long.MaxValue - 5, long.MaxValue, long.MaxValue - 2, long.MaxValue - 5, long.MaxValue - 1, long.MaxValue - 3, long.MaxValue - 4)]
+    public void Sort_UnorderedList(long expected, long d1, long d2, long d3, long d4, long d5, long d6)
+    {
+        var durations = new List<Duration>
+        {
+            Duration.FromMicroseconds(d1),
+            Duration.FromMicroseconds(d2),
+            Duration.FromMicroseconds(d3),
+            Duration.FromMicroseconds(d4),
+            Duration.FromMicroseconds(d5),
+            Duration.FromMicroseconds(d6)
+        };
+        durations.Sort();
+        Assert.Equal(expected, durations[0].Microseconds);
     }
 }
