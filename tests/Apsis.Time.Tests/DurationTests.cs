@@ -173,4 +173,17 @@ public class DurationTests
         var duration =  Duration.FromMicroseconds(microseconds);
         Assert.Equal(expected, duration.Seconds);
     }
+    
+    [Theory]
+    [InlineData(-1_000_000,-1)]
+    [InlineData(0,0)]
+    [InlineData(500_000, 1)]
+    [InlineData(1_500_000, 1)]
+    public void CompareTo_LessThanZero(long microseconds, int expected)
+    {
+        var duration = Duration.FromMicroseconds(microseconds);
+        Assert.Equal(expected, duration.CompareTo(Duration.Zero));
+    }
+    
+    
 }
