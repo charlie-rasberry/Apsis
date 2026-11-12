@@ -184,6 +184,13 @@ public class DurationTests
         var duration = Duration.FromMicroseconds(microseconds);
         Assert.Equal(expected, duration.CompareTo(Duration.Zero));
     }
-    
-    
+
+    [Fact]
+    public void CompareTo_MicrosecondsMaxValue()
+    {
+        Assert.Equal(1, Duration.FromMicroseconds(long.MaxValue).CompareTo(Duration.FromMicroseconds(-1)));
+        Assert.Equal(-1, Duration.FromMicroseconds(-long.MaxValue).CompareTo(Duration.FromMicroseconds(1)));
+        Assert.Equal(0, Duration.FromMicroseconds(long.MaxValue).CompareTo(Duration.FromMicroseconds(long.MaxValue)));
+        Assert.Equal(-1, Duration.FromMicroseconds(long.MinValue).CompareTo(Duration.FromMicroseconds(1)));
+    }
 }
