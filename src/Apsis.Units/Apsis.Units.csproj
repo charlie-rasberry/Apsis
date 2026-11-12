@@ -17,10 +17,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\Apsis.Utilities\Apsis.Utilities.csproj" />
   </ItemGroup>
   

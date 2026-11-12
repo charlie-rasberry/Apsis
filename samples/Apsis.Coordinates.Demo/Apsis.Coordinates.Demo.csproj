@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Apsis.Coordinates\Apsis.Coordinates.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Time\Apsis.Time.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Units\Apsis.Units.csproj" />
     <ProjectReference Include="..\..\src\Apsis.Utilities\Apsis.Utilities.csproj" />
   </ItemGroup>
-  
   <PropertyGroup>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  
 </Project>

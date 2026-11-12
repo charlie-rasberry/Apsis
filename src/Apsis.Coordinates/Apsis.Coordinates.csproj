@@ -1,22 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
   <PropertyGroup>
     <PackageId>Apsis.Coordinates</PackageId>
     <Description>Geodetic and ECEF coordinate types for .NET, built for precision.</Description>
     <PackageTags>coordinates;geodetic;ecef;wgs84;elevation;</PackageTags>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="MinVer">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  
   <ItemGroup>
-    <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
     <ProjectReference Include="..\Apsis.Units\Apsis.Units.csproj" />
     <ProjectReference Include="..\Apsis.Utilities\Apsis.Utilities.csproj" />
   </ItemGroup>
-  
 </Project>

@@ -9,13 +9,11 @@
     <AnalysisLevel>latest-recommended</AnalysisLevel>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Deterministic>true</Deterministic>
-    
     <RepositoryUrl>https://github.com/charlie-rasberry/Apsis</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Authors>Charles Rasberry</Authors>
+    <Authors>Charlie Rasberry</Authors>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    
   </PropertyGroup>
 </Project>
