@@ -135,7 +135,12 @@ public class DurationTests
         var duration = Duration.FromSeconds(seconds);
         Assert.Equal(duration, duration + Duration.Zero);
     }
-    
+
+    [Fact]
+    public void Negate_Zero_ReturnsZero()
+    {
+        Assert.Equal(Duration.Zero, -Duration.Zero);
+    }
 
     [Theory]
     [InlineData(1, -1_000_000)]
