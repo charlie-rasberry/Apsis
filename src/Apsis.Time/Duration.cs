@@ -11,7 +11,7 @@ namespace Apsis.Time;
 /// <param name="Us">
 /// The total duration expressed in microseconds.
 /// </param>
-public readonly record struct Duration(long Us)
+public readonly record struct Duration(long Us) : IComparable<Duration>
 {
     // Constants
 
@@ -105,14 +105,14 @@ public readonly record struct Duration(long Us)
     /// Creates a duration from a millisecond value.
     /// </summary>
     /// <param name="milliseconds">The number of milliseconds.</param>
-    /// <returns>A duration representing the specified value.</returns>
+    /// <returns>A <see cref="Duration"/> representing the specified value.</returns>
     public static Duration FromMilliseconds(long milliseconds) => new(milliseconds * MicrosecondsPerMillisecond);
     
     /// <summary>
-    /// Creates a duration from a second value.
+    /// Creates a duration instance from a second value.
     /// </summary>
-    /// <param name="seconds"></param>
-    /// <returns></returns>
+    /// <param name="seconds">Number of seconds.</param>
+    /// <returns>A new <see cref="Duration"/> instance.</returns>
     public static Duration FromSeconds(long seconds) => new(seconds * MicrosecondsPerSecond);
     
     /// <summary>
@@ -153,6 +153,14 @@ public readonly record struct Duration(long Us)
     /// <returns>A duration representing the specified value.</returns>
     public static Duration FromWeeks(long weeks) => new(weeks * MicrosecondsPerWeek);
 
+    
+    /// <summary>
+    /// Returns -1 for less than, 0 for equal to, 1 for greater than.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public int CompareTo(Duration other) => Us.CompareTo(other.Us);
+    
     // Overloads
 
     /// <summary>
