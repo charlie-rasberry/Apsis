@@ -163,4 +163,14 @@ public class DurationTests
         Assert.Equal(expected, duration.TotalSeconds);
     }
     
+    [Theory]
+    [InlineData(1_500_000, 1)]
+    [InlineData(-1_500_000, -1)]
+    [InlineData(-1_500_000_000_000, -1_500_000)]
+    [InlineData(-500_000, 0)]
+    public void Seconds_Truncates_FromMicroseconds(long microseconds, double expected)
+    {
+        var duration =  Duration.FromMicroseconds(microseconds);
+        Assert.Equal(expected, duration.Seconds);
+    }
 }
