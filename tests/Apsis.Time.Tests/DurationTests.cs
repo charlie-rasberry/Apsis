@@ -136,5 +136,16 @@ public class DurationTests
         duration = -duration;
         Assert.Equal(negatedMicroseconds, duration.Microseconds);
     }
+
+    [Theory]
+    [InlineData(1_500_000, 1.5)]
+    [InlineData(-1_500_000, -1.5)]
+    [InlineData(-1_500_000_000_000, -1_500_000
+    )]
+    public void TotalSeconds_FromMicroseconds(long microseconds, double expected)
+    {
+        var duration =  Duration.FromMicroseconds(microseconds);
+        Assert.Equal(expected, duration.TotalSeconds);
+    }
     
 }

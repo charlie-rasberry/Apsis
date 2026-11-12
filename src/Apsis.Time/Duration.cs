@@ -61,6 +61,11 @@ public readonly record struct Duration(long Us)
     /// Gets the total duration in seconds.
     /// </summary>
     public long Seconds => Us / MicrosecondsPerSecond;
+    
+    /// <summary>
+    /// Gets the total <see cref="Duration"/> value in whole and fractional seconds.
+    /// </summary>
+    public double TotalSeconds => (double) Us / MicrosecondsPerSecond;
 
     /// <summary>
     /// Gets the total duration in minutes.
