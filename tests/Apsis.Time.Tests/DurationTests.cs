@@ -123,7 +123,18 @@ public class DurationTests
     [Fact]
     public void Zero_IsDefault()
     {
-        Assert.Equal(Duration.Zero, default(Duration));
+        var duration = default(Duration);
+        Assert.Equal(Duration.Zero, duration);
+    }
+
+    [Theory]
+    [InlineData(1, -1_000_000)]
+    [InlineData(-1, 1_000_000)]
+    public void Negate_Seconds(long seconds, long negatedMicroseconds)
+    {
+        var duration = Duration.FromSeconds(seconds);
+        duration = -duration;
+        Assert.Equal(negatedMicroseconds, duration.Microseconds);
     }
     
 }

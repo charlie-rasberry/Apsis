@@ -151,17 +151,24 @@ public readonly record struct Duration(long Us)
     // Overloads
 
     /// <summary>
-    /// Adds two durations.
+    /// Adds two <see cref="Duration"/> values.
     /// </summary>
     public static Duration operator +(Duration a, Duration b) => new(a.Us + b.Us);
 
     /// <summary>
-    /// Subtracts one duration from another.
+    /// Subtracts one <see cref="Duration"/> value from another.
     /// </summary>
     public static Duration operator -(Duration a, Duration b) => new(a.Us - b.Us);
+    
+    /// <summary>
+    /// Negates a <see cref="Duration"/>
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
+    public static Duration operator -(Duration duration) => new(-duration.Us);
 
     /// <summary>
-    /// Multiplies a duration by a scalar.
+    /// Multiplies a <see cref="Duration"/> value by a scalar.
     /// </summary>
     public static Duration operator *(Duration a, long scalar) => new(a.Us * scalar);
 
