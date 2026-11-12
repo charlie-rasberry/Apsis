@@ -3,15 +3,9 @@
     <Project Path="samples/Apsis.Coordinates.Demo/Apsis.Coordinates.Demo.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Apsis.Coordinates/Apsis.Coordinates.csproj" />
-    <Project Path="src/Apsis.Time/Apsis.Time.csproj" />
-    <Project Path="src/Apsis.Units/Apsis.Units.csproj" />
-    <Project Path="src/Apsis.Utilities/Apsis.Utilities.csproj" />
+    <Project Path="src/Apsis/Apsis.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Apsis.Coordinates.Tests/Apsis.Coordinates.Tests.csproj" />
-    <Project Path="tests/Apsis.Time.Tests/Apsis.Time.Tests.csproj" />
-    <Project Path="tests/Apsis.Units.Tests/Apsis.Units.Tests.csproj" />
-    <Project Path="tests/Apsis.Utilities.Tests/Apsis.Utilities.Tests.csproj" />
+    <Project Path="tests/Apsis.Tests/Apsis.Tests.csproj" />
   </Folder>
 </Solution>

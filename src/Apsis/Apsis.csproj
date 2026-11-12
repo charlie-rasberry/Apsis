@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Apsis</PackageId>
+    <Description>Geodetic coordinates, precise time handling, strongly-typed units, and math utilities for .NET.</Description>
+    <PackageTags>coordinates;geodetic;ecef;wgs84;elevation;time;julian;julian2000;julianday;microsecond;si;angle;distance;units;meters;radians;degrees;kilometers;utilities;math</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Coordinates\" />
+    <Folder Include="Time\" />
+    <Folder Include="Units\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+</Project>
