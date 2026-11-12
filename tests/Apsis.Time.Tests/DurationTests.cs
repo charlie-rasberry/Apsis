@@ -217,4 +217,31 @@ public class DurationTests
         durations.Sort();
         Assert.Equal(expected, durations[0].Microseconds);
     }
+
+    [Theory]
+    [InlineData(1_000_000, 1)]
+    [InlineData(100, 50)]
+    [InlineData(1, 0)]
+    [InlineData(0, -1)]
+    [InlineData(-1, -100)]
+    [InlineData(1, 1_000_000)]
+    [InlineData(50, 100)]
+    [InlineData(0, 1)]
+    [InlineData(-1, 0)]
+    [InlineData(-100, -1)]
+    [InlineData(0, 0)]
+    [InlineData(1, 1)]
+    [InlineData(-1, -1)]
+    [InlineData(1_000_000, 1_000_000)]
+    public void Operators_AgreeWithCompareTo(long d1, long d2)
+    {
+        var duration1 = Duration.FromMicroseconds(d1);
+        var duration2 = Duration.FromMicroseconds(d2);
+
+        var compareTo = duration1.CompareTo(duration2);
+
+        Assert.Equal(compareTo > 0, duration1 > duration2);
+        Assert.Equal(compareTo < 0, duration1 < duration2);
+        Assert.Equal(compareTo == 0, duration1 == duration2);
+    }
 }
