@@ -1,6 +1,11 @@
 <Project>
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+  
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -9,6 +14,9 @@
     <AnalysisLevel>latest-recommended</AnalysisLevel>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <RepositoryUrl>https://github.com/charlie-rasberry/Apsis</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -16,4 +24,5 @@
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  
 </Project>

@@ -1,4 +1,7 @@
+using System;
+
 namespace Apsis.Time;
+
 /// <summary>
 /// Epoch, the date to set as a reference / starting point
 /// The Julian date (JD) of any instant is the Julian day number plus the fraction of a day since the preceding noon in Universal Time.

@@ -1,4 +1,5 @@
-﻿using Apsis.Utilities;
+﻿using System;
+using Apsis.Utilities;
 
 namespace Apsis.Coordinates;
 /// <summary>

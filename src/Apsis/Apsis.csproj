@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <PackageId>Apsis</PackageId>
     <Description>Geodetic coordinates, precise time handling, strongly-typed units, and math utilities for .NET.</Description>
     <PackageTags>coordinates;geodetic;ecef;wgs84;elevation;time;julian;julian2000;julianday;microsecond;si;angle;distance;units;meters;radians;degrees;kilometers;utilities;math</PackageTags>
@@ -13,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../../docs/README.md" Pack="true" PackagePath="\" />
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
